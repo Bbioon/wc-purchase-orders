@@ -46,7 +46,7 @@ class Wc_Purchase_Orders_User_Profile {
 			return;
 		}
 
-		if ( ! empty( $_POST['enable-shop-orders'] ) && $_POST['enable-shop-orders'] === 'yes' ) {
+		if ( ! empty( $_POST['enable-shop-orders'] ) && $_POST['enable-shop-orders'] === 'yes' && current_user_can( 'manage_options' ) ) {
 			update_user_meta( $user_id, 'wcpo_can_user_shop_orders', 'yes' );
 		} else {
 			delete_user_meta( $user_id, 'wcpo_can_user_shop_orders' );
