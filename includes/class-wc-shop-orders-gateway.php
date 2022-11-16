@@ -57,8 +57,7 @@ class Wc_Shop_Orders_Gateway extends WC_Payment_Gateway {
 		echo '<div class="form-row form-row-wide"><label>' . $shop_order_number . ' <span class="required">*</span></label>
 		<input id="wcso-document-number" name="wcso-document-number" type="text" required>
 		</div><div class="form-row form-row-wide"><label>' . $shop_order_doc . ' <span class="required">*</span></label>
-		<input id="wcso-document-file" name="wcso-document-file" type="file" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-text/plain, application/pdf">
+		<input id="wcso-document-file" name="wcso-document-file" type="file" accept=".doc,.docx,.pdf">
 		</div></fieldset>';
 
 		do_action( 'wcso_after_form' );
