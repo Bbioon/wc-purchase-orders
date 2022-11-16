@@ -78,6 +78,7 @@ class Wc_Shop_Orders {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+		$this->register_payment_class();
 
 	}
 
@@ -122,7 +123,21 @@ class Wc_Shop_Orders {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wc-shop-orders-public.php';
 
+		/**
+		 * Load the payment processor registration class.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-shop-orders-registration.php';
+
 		$this->loader = new Wc_Shop_Orders_Loader();
+
+	}
+
+	private function register_payment_class() {
+
+		$payment_class = new WWc_Shop_Orders_Gateway_Registration();
+
+		$this->loader->add_filter( 'woocommerce_payment_gateways', $payment_class, 'load_payment_gateway_class' );
+		$this->loader->add_action( 'plugins_loaded', $payment_class, 'load_payment_gateway' );
 
 	}
 
