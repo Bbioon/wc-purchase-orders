@@ -8,8 +8,8 @@
  * @link       https://bbioon.com
  * @since      1.0.0
  *
- * @package    Wc_Shop_Orders
- * @subpackage Wc_Shop_Orders/admin/partials
+ * @package    Wc_Purchase_Orders
+ * @subpackage Wc_Purchase_Orders/admin/partials
  */
 ?>
 

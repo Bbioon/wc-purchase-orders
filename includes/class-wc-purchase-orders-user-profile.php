@@ -8,7 +8,7 @@
  * @subpackage Woocommerce_Payment_Processor/includes
  * @author     AHMAD WAEL <dev.ahmedwael@gmail.com>
  */
-class Wc_Shop_Orders_User_Profile {
+class Wc_Purchase_Orders_User_Profile {
 
 	/**
 	 * Display user profile fields for enable/disable shop orders.
@@ -22,12 +22,12 @@ class Wc_Shop_Orders_User_Profile {
         <h3><?php _e( "Allow Shop Orders", "blank" ); ?></h3>
         <table class="form-table" role="presentation">
             <tr class="enable-shop-orders">
-                <th scope="row"><?php _e( 'Shop Orders', 'wc-shop-orders' ); ?></th>
+                <th scope="row"><?php _e( 'Shop Orders', 'wc-purchase-orders' ); ?></th>
                 <td>
                     <label for="enable-shop-orders">
                         <input name="enable-shop-orders" type="checkbox" id="enable-shop-orders" value="yes"
-							<?php checked( get_user_meta( $user->ID, 'wcso_can_user_shop_orders', true ), 'yes', true ) ?>>
-						<?php _e( 'Enable shop orders', 'wc-shop-orders' ); ?> </label><br>
+							<?php checked( get_user_meta( $user->ID, 'wcpo_can_user_shop_orders', true ), 'yes' ) ?>>
+						<?php _e( 'Enable shop orders', 'wc-purchase-orders' ); ?> </label><br>
                 </td>
             </tr>
         </table>
@@ -47,9 +47,9 @@ class Wc_Shop_Orders_User_Profile {
 		}
 
 		if ( ! empty( $_POST['enable-shop-orders'] ) && $_POST['enable-shop-orders'] === 'yes' ) {
-			update_user_meta( $user_id, 'wcso_can_user_shop_orders', 'yes' );
+			update_user_meta( $user_id, 'wcpo_can_user_shop_orders', 'yes' );
 		} else {
-			delete_user_meta( $user_id, 'wcso_can_user_shop_orders' );
+			delete_user_meta( $user_id, 'wcpo_can_user_shop_orders' );
 		}
 	}
 }

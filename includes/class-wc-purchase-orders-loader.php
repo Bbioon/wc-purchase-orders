@@ -6,8 +6,8 @@
  * @link       https://bbioon.com
  * @since      1.0.0
  *
- * @package    Wc_Shop_Orders
- * @subpackage Wc_Shop_Orders/includes
+ * @package    Wc_Purchase_Orders
+ * @subpackage Wc_Purchase_Orders/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Wc_Shop_Orders
- * @subpackage Wc_Shop_Orders/includes
+ * @package    Wc_Purchase_Orders
+ * @subpackage Wc_Purchase_Orders/includes
  * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
-class Wc_Shop_Orders_Loader {
+class Wc_Purchase_Orders_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

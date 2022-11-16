@@ -9,8 +9,8 @@
  * @link       https://bbioon.com
  * @since      1.0.0
  *
- * @package    Wc_Shop_Orders
- * @subpackage Wc_Shop_Orders/includes
+ * @package    Wc_Purchase_Orders
+ * @subpackage Wc_Purchase_Orders/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Wc_Shop_Orders
- * @subpackage Wc_Shop_Orders/includes
+ * @package    Wc_Purchase_Orders
+ * @subpackage Wc_Purchase_Orders/includes
  * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
-class Wc_Shop_Orders_i18n {
+class Wc_Purchase_Orders_i18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class Wc_Shop_Orders_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'wc-shop-orders',
+			'wc-purchase-orders',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
