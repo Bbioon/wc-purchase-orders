@@ -79,6 +79,7 @@ class Wc_Shop_Orders {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->register_payment_class();
+		$this->user_profile_settings();
 
 	}
 
@@ -139,7 +140,7 @@ class Wc_Shop_Orders {
 
 	private function register_payment_class() {
 
-		$payment_class = new WWc_Shop_Orders_Gateway_Registration();
+		$payment_class = new Wc_Shop_Orders_Gateway_Registration();
 
 		$this->loader->add_filter( 'woocommerce_payment_gateways', $payment_class, 'load_payment_gateway_class' );
 		$this->loader->add_filter( 'woocommerce_available_payment_gateways', $payment_class, 'allowed_shop_order_users' );

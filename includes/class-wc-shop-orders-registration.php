@@ -8,7 +8,7 @@
  * @subpackage Woocommerce_Payment_Processor/includes
  * @author     AHMAD WAEL <dev.ahmedwael@gmail.com>
  */
-class WWc_Shop_Orders_Gateway_Registration {
+class Wc_Shop_Orders_Gateway_Registration {
 
 	/**
 	 * Load the payment gateway class
