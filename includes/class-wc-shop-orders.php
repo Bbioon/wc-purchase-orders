@@ -128,6 +128,11 @@ class Wc_Shop_Orders {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-shop-orders-registration.php';
 
+		/**
+		 * Load user profile functionality.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-shop-orders-user-profile.php';
+
 		$this->loader = new Wc_Shop_Orders_Loader();
 
 	}
@@ -139,6 +144,17 @@ class Wc_Shop_Orders {
 		$this->loader->add_filter( 'woocommerce_payment_gateways', $payment_class, 'load_payment_gateway_class' );
 		$this->loader->add_filter( 'woocommerce_available_payment_gateways', $payment_class, 'allowed_shop_order_users' );
 		$this->loader->add_action( 'plugins_loaded', $payment_class, 'load_payment_gateway' );
+
+	}
+
+	private function user_profile_settings() {
+
+		$user_profile = new Wc_Shop_Orders_User_Profile();
+
+		$this->loader->add_action( 'show_user_profile', $user_profile, 'user_shop_orders_enable' );
+		$this->loader->add_action( 'edit_user_profile', $user_profile, 'user_shop_orders_enable' );
+		$this->loader->add_action( 'personal_options_update', $user_profile, 'save_user_shop_orders_enable' );
+		$this->loader->add_action( 'edit_user_profile_update', $user_profile, 'save_user_shop_orders_enable' );
 
 	}
 
