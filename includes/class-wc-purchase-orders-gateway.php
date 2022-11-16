@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The shop orders payment gateway class for woocommerce.
+ * The purchase orders payment gateway class for woocommerce.
  *
  * @since      1.0.0
  * @package    Woocommerce_Payment_Processor
@@ -34,7 +34,7 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		$this->form_fields = array(
 			'enabled' => array(
 				'title'       => 'Enable/Disable',
-				'label'       => __( 'Enable Payment Processor Gateway', 'wc-purchase-orders' ),
+				'label'       => __( 'Enable Purchase Orders Gateway', 'wc-purchase-orders' ),
 				'type'        => 'checkbox',
 				'description' => '',
 				'default'     => 'no'

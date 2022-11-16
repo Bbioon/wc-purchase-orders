@@ -67,8 +67,8 @@ class Wc_Purchase_Orders {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'WC_SHOP_ORDERS_VERSION' ) ) {
-			$this->version = WC_SHOP_ORDERS_VERSION;
+		if ( defined( 'WC_PURCHASE_ORDERS_VERSION' ) ) {
+			$this->version = WC_PURCHASE_ORDERS_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
@@ -143,7 +143,7 @@ class Wc_Purchase_Orders {
 		$payment_class = new Wc_Purchase_Orders_Gateway_Registration();
 
 		$this->loader->add_filter( 'woocommerce_payment_gateways', $payment_class, 'load_payment_gateway_class' );
-		$this->loader->add_filter( 'woocommerce_available_payment_gateways', $payment_class, 'allowed_shop_order_users' );
+		$this->loader->add_filter( 'woocommerce_available_payment_gateways', $payment_class, 'allowed_purchase_order_users' );
 		$this->loader->add_action( 'plugins_loaded', $payment_class, 'load_payment_gateway' );
 
 	}
@@ -152,10 +152,10 @@ class Wc_Purchase_Orders {
 
 		$user_profile = new Wc_Purchase_Orders_User_Profile();
 
-		$this->loader->add_action( 'show_user_profile', $user_profile, 'user_shop_orders_enable' );
-		$this->loader->add_action( 'edit_user_profile', $user_profile, 'user_shop_orders_enable' );
-		$this->loader->add_action( 'personal_options_update', $user_profile, 'save_user_shop_orders_enable' );
-		$this->loader->add_action( 'edit_user_profile_update', $user_profile, 'save_user_shop_orders_enable' );
+		$this->loader->add_action( 'show_user_profile', $user_profile, 'user_purchase_orders_enable' );
+		$this->loader->add_action( 'edit_user_profile', $user_profile, 'user_purchase_orders_enable' );
+		$this->loader->add_action( 'personal_options_update', $user_profile, 'save_purchase_orders_enable' );
+		$this->loader->add_action( 'edit_user_profile_update', $user_profile, 'save_purchase_orders_enable' );
 
 	}
 
