@@ -15,10 +15,10 @@ class Wc_Shop_Orders_Gateway extends WC_Payment_Gateway {
 		$this->id                 = 'wc-shop-orders';
 		$this->icon               = false; // URL of the icon that will be displayed on checkout page
 		$this->has_fields         = true; // in case you need a custom credit card form
-		$this->method_title       = __( 'Payment Processor Gateway', 'wc-shop-orders' ); //method title for dashboard
-		$this->title              = __( 'Payment Processor', 'wc-shop-orders' ); //method title  for checkout page
-		$this->description        = __( 'Pay using your balance at PaymentProcessor', 'wc-shop-orders' ); // will be displayed on the checkout page
-		$this->method_description = __( 'Pay using your balance at PaymentProcessor', 'wc-shop-orders' ); // will be displayed on the options page
+		$this->method_title       = __( 'Shop Orders Gateway', 'wc-shop-orders' ); //method title for dashboard
+		$this->title              = __( 'Shop Orders', 'wc-shop-orders' ); //method title  for checkout page
+		$this->description        = __( 'Pay using Shop Orders', 'wc-shop-orders' ); // will be displayed on the checkout page
+		$this->method_description = __( 'Pay using Shop Orders', 'wc-shop-orders' ); // will be displayed on the options page
 		//$this->rest_url           = $this->get_option( 'pp_rest_url' );
 
 		$this->init_form_fields();
