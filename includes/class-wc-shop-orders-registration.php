@@ -32,5 +32,20 @@ class WWc_Shop_Orders_Gateway_Registration {
 		}
 	}
 
+	/**
+	 * Display shop orders payment gateway only for allowed users.
+	 * @param $available_gateways array of payment gateways ids
+	 *
+	 * @return array of payment gateways ids
+	 */
+	public function allowed_shop_order_users( $available_gateways ) {
+		$user_id             = get_current_user_id();
+		$can_use_shop_orders = get_user_meta( $user_id, 'wcso_can_user_shop_orders', true ) === 1;
+		if ( isset( $available_gateways['wc-shop-orders'] ) && ! $can_use_shop_orders ) {
+			unset( $available_gateways['wc-shop-orders'] );
+		}
+
+		return $available_gateways;
+	}
 
 }

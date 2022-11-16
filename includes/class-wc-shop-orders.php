@@ -35,7 +35,7 @@ class Wc_Shop_Orders {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Wc_Shop_Orders_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Wc_Shop_Orders_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -44,7 +44,7 @@ class Wc_Shop_Orders {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 * @var      string $plugin_name The string used to uniquely identify this plugin.
 	 */
 	protected $plugin_name;
 
@@ -53,7 +53,7 @@ class Wc_Shop_Orders {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var      string $version The current version of the plugin.
 	 */
 	protected $version;
 
@@ -137,6 +137,7 @@ class Wc_Shop_Orders {
 		$payment_class = new WWc_Shop_Orders_Gateway_Registration();
 
 		$this->loader->add_filter( 'woocommerce_payment_gateways', $payment_class, 'load_payment_gateway_class' );
+		$this->loader->add_filter( 'woocommerce_available_payment_gateways', $payment_class, 'allowed_shop_order_users' );
 		$this->loader->add_action( 'plugins_loaded', $payment_class, 'load_payment_gateway' );
 
 	}
@@ -203,8 +204,8 @@ class Wc_Shop_Orders {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_plugin_name() {
 		return $this->plugin_name;
@@ -213,8 +214,8 @@ class Wc_Shop_Orders {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     1.0.0
 	 * @return    Wc_Shop_Orders_Loader    Orchestrates the hooks of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_loader() {
 		return $this->loader;
@@ -223,8 +224,8 @@ class Wc_Shop_Orders {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_version() {
 		return $this->version;
