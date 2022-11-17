@@ -43,41 +43,49 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 	}
 
 	public function payment_fields() {
-
-		// display some description before the payment form
-		if ( $this->description ) {
-			// display the description with <p> tags etc.
-			echo wpautop( wp_kses_post( $this->description ) );
-		}
-
-		do_action( 'wcso_before_form' );
-		echo '<fieldset id="wc-' . esc_attr( $this->id ) . '-pp-form" class="wc-payment-process-form wc-payment-form" style="background:transparent;">';
-		$purchase_order_number = __( 'Purchase order number', 'wc-purchase-orders' );
-		$purchase_order_doc    = __( 'Purchase order document file', 'wc-purchase-orders' );
+		parent::payment_fields();
+		do_action( 'wcpo_before_form' );
+		echo '<fieldset id="wc-' . esc_attr( $this->id ) . '-po-form" class="wc-payment-process-form wc-payment-form" style="background:transparent;">';
+		$purchase_order_number = __( 'Add purchase order number', 'wc-purchase-orders' );
+		$purchase_order_doc    = __( 'Or upload purchase order document file', 'wc-purchase-orders' );
 		echo '<div class="form-row form-row-wide"><label>' . $purchase_order_number . '</label>
-		<input id="wcso-document-number" name="wcso-document-number" type="text" required>
-		</div><div class="form-row form-row-wide"><label>' . $purchase_order_doc . '</label>
-		<input id="wcso-document-file" name="wcso-document-file" type="file" accept=".doc,.docx,.pdf">
+		<input id="wcpo-document-number" name="wcpo-document-number" type="text">
+		</div>
+		<div class="form-row form-row-wide wcpo-document-upload">
+		<label for="wcpo-document-file"><a>' . $purchase_order_doc . '</a></label>
+		<input id="wcpo-document-file" name="wcpo-document-file" type="file" accept=".doc,.docx,.pdf">
+		<input type="hidden" name="wcpo-document-file-path">
+		<div class="clear"></div>
+		</div>
+		<div class="form-row form-row-wide">
+		<div class="wcpo-document-preview"></div>
 		</div></fieldset>';
 
-		do_action( 'wcso_after_form' );
+		do_action( 'wcpo_after_form' );
 	}
 
 	/**
 	 * Validation
 	 */
 	public function validate_fields() {
+		file_put_contents( plugin_dir_path( __FILE__ ) . '/nn.log', print_r( $_FILES, 1 ) . PHP_EOL, FILE_APPEND );
+
 		return true;
 	}
 
 	public function process_payment( $order_id ) {
 		$order = wc_get_order( $order_id );
+		//todo handle the upload process
+		$upload_dir = wp_upload_dir();
 
-		// Redirect to the thank you page.
-		return array(
-			'result'   => 'success',
-			'redirect' => $this->get_return_url( $order )
-		);
+//		if ( isset( $_FILES['wcpo-document-file'] ) ) {
+//			$path = $upload_dir['path'] . '/wc-purchase-orders/' . basename( $_FILES['wcpo-document-file']['name'] );
+//			if ( move_uploaded_file( $_FILES['wcpo-document-file']['tmp_name'], $path ) ) {
+//				echo $upload_dir['url'] . '/wc-purchase-orders/' . basename( $_FILES['wcpo-document-file']['name'] );
+//			}
+//		}
+
+		return;
 	}
 
 
