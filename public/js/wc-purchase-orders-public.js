@@ -1,32 +1,49 @@
-(function( $ ) {
-	'use strict';
+(function ($) {
+    'use strict';
 
-	/**
-	 * All of the code for your public-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+    // upload purchase order
+    $(document).on('change', '#wcpo-document-file', function (e) {
+        const previewArea = $('.wcpo-document-preview');
+        if (!this.files.length) {
+            previewArea.empty().hide();
+        } else {
+            const file = this.files[0];
+            const formData = new FormData();
+            formData.append('wcpo-document-file', file);
+            formData.append('nonce', wcpo_object.nonce);
+            $.ajax({
+                url: wcpo_object.ajax_url + '?action=wcpo_upload_purchase_order',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (response) {
+                    previewArea.empty().show();
+                    $('input[name="wcpo-document-file-path"]').val(response.data.file_path);
+                    previewArea.append('<span class="wcpo-remove">x</span><span>' + file.name + '</span><img src="' + wcpo_object.icons_url + response.data.file_type + '.png">')
+                }
+            });
+        }
+    });
 
-})( jQuery );
+    // delete the uploaded purchase order
+    $(document).on('click', '.wcpo-remove', function (e) {
+        const previewArea = $('.wcpo-document-preview');
+        const file = $('input[name="wcpo-document-file-path"]');
+        previewArea.empty().hide();
+        if (file.val()) {
+            $.ajax({
+                type: "post", dataType: "json", url: wcpo_object.ajax_url, data: {
+                    action: "wcpo_delete_purchase_order_file", file_path: file.val(), nonce: wcpo_object.nonce
+                },
+                success: function (response) {
+                    console.log(response)
+                    file.val('')
+                    $('#wcpo-document-file').val('')
+                }
+            })
+        }
+    });
+
+})(jQuery);

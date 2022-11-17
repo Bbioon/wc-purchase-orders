@@ -80,6 +80,7 @@ class Wc_Purchase_Orders {
 		$this->define_public_hooks();
 		$this->register_payment_class();
 		$this->user_profile_settings();
+		$this->handle_file_uploads();
 
 	}
 
@@ -133,8 +134,18 @@ class Wc_Purchase_Orders {
 		 * Load user profile functionality.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-purchase-orders-user-profile.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-purchase-orders-files.php';
 
 		$this->loader = new Wc_Purchase_Orders_Loader();
+
+	}
+
+	private function handle_file_uploads() {
+
+		$file_uploads = new Wc_Purchase_Orders_Files();
+
+		$this->loader->add_action( 'wp_ajax_wcpo_upload_purchase_order', $file_uploads, 'file_upload' );
+		$this->loader->add_action( 'wp_ajax_wcpo_delete_purchase_order_file', $file_uploads, 'delete_file' );
 
 	}
 
