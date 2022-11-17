@@ -22,6 +22,13 @@
  */
 class Wc_Purchase_Orders_Activator {
 
+	private static function create_plugin_folders() {
+		$upload            = wp_upload_dir();
+		$upload_dir        = $upload['basedir'];
+		$plugin_dir = $upload_dir . '/wc-purchase-orders';
+		wp_mkdir_p( $plugin_dir );
+	}
+
 	/**
 	 * Short Description. (use period)
 	 *
@@ -30,7 +37,7 @@ class Wc_Purchase_Orders_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-
+		self::create_plugin_folders();
 	}
 
 }
