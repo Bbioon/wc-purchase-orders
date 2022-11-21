@@ -200,6 +200,8 @@ class Wc_Purchase_Orders {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'woocommerce_admin_order_data_after_order_details', $plugin_admin, 'purchase_order_data_admin' );
+		$this->loader->add_action( 'woocommerce_email_order_meta', $plugin_admin, 'purchase_order_data_email', 10, 3 );
 
 	}
 

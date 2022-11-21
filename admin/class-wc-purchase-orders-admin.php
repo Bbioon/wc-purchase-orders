@@ -27,7 +27,7 @@ class Wc_Purchase_Orders_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string $plugin_name The ID of this plugin.
 	 */
 	private $plugin_name;
 
@@ -36,21 +36,22 @@ class Wc_Purchase_Orders_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @var      string $version The current version of this plugin.
 	 */
 	private $version;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -100,4 +101,74 @@ class Wc_Purchase_Orders_Admin {
 
 	}
 
+	/**
+	 * Display pruchase order information.
+	 *
+	 * @param $order
+	 *
+	 * @return void
+	 */
+	public function purchase_order_data_admin( $order ) {
+		$payment_gateway = $order->get_payment_method();
+		if ( $payment_gateway === 'wc-purchase-orders' ) {
+			$upload_dir = wp_upload_dir();
+			?>
+            <br class="clear"/>
+            <h3><?php _e( 'Purchase Order Details', 'wc-purchase-orders' ) ?></h3>
+			<?php
+			$file_path = $order->get_meta( '_purchase_order_file_path' );
+			if ( $file_path ) {
+				$url = $upload_dir['baseurl'] . $file_path;
+				?>
+                <div class="purchase-order-document-file">
+                    <a href="<?php echo esc_url( $url ) ?>" download>
+						<?php _e( 'Download purchase order attachment', 'wc-purchase-orders' ) ?>
+                    </a>
+                </div>
+				<?php
+			}
+			$purchase_order_number = $order->get_meta( '_purchase_order_number' );
+			if ( $purchase_order_number ) {
+				?>
+                <br/>
+                <div class="purchase-order-number">
+                    <strong><?php _e( 'Purchase Order Number', 'wc-purchase-orders' ) ?>: </strong>
+					<?php echo esc_html( $purchase_order_number ) ?>
+                </div>
+				<?php
+			}
+		}
+	}
+
+	public function purchase_order_data_email( $order, $sent_to_admin, $plain_text ) {
+		$payment_gateway = $order->get_payment_method();
+		if ( $payment_gateway === 'wc-purchase-orders' ) {
+			$upload_dir = wp_upload_dir();
+			?>
+            <br class="clear"/>
+            <h3><?php _e( 'Purchase Order Details', 'wc-purchase-orders' ) ?></h3>
+			<?php
+			$file_path = $order->get_meta( '_purchase_order_file_path' );
+			if ( $file_path ) {
+				$url = $upload_dir['baseurl'] . $file_path;
+				?>
+                <div class="purchase-order-document-file">
+                    <a href="<?php echo esc_url( $url ) ?>" download>
+						<?php _e( 'Download purchase order attachment', 'wc-purchase-orders' ) ?>
+                    </a>
+                </div>
+				<?php
+			}
+			$purchase_order_number = $order->get_meta( '_purchase_order_number' );
+			if ( $purchase_order_number ) {
+				?>
+                <br/>
+                <div class="purchase-order-number">
+                    <strong><?php _e( 'Purchase Order Number', 'wc-purchase-orders' ) ?>: </strong>
+					<?php echo esc_html( $purchase_order_number ) ?>
+                </div>
+				<?php
+			}
+		}
+	}
 }
