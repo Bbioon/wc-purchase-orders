@@ -108,11 +108,17 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 			$order->update_meta_data( '_purchase_order_number', sanitize_text_field( $_POST['wcpo-document-number'] ) );
 		}
 		$order->update_status( 'on-hold', __( 'Awaiting purchase order review', 'wc-purchase-orders' ) );
-		$order->reduce_order_stock();
+
+		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
+			$order->reduce_order_stock();
+		} else {
+			wc_reduce_stock_levels( $order_id );
+		}
+
 		$woocommerce->cart->empty_cart();
 
 		return array(
-			'result' => 'success',
+			'result'   => 'success',
 			'redirect' => $this->get_return_url( $order )
 		);
 	}
