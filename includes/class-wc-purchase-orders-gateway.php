@@ -68,25 +68,51 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 	 * Validation
 	 */
 	public function validate_fields() {
-		file_put_contents( plugin_dir_path( __FILE__ ) . '/nn.log', print_r( $_FILES, 1 ) . PHP_EOL, FILE_APPEND );
+
 
 		return true;
 	}
 
-	public function process_payment( $order_id ) {
-		$order = wc_get_order( $order_id );
-		//todo handle the upload process
-		$upload_dir = wp_upload_dir();
+	private function rename_document( $file_path, $order_id ) {
+		$upload_dir    = wp_upload_dir();
+		$file_name     = basename( $file_path );
+		$ext           = pathinfo( $file_name, PATHINFO_EXTENSION );
+		$path          = dirname( $file_path );
+		$new_file_name = 'purchase-order-' . $order_id . '.' . $ext;
+		rename( $upload_dir['basedir'] . $file_path, $upload_dir['basedir'] . $path . DIRECTORY_SEPARATOR . $new_file_name );
 
-//		if ( isset( $_FILES['wcpo-document-file'] ) ) {
-//			$path = $upload_dir['path'] . '/wc-purchase-orders/' . basename( $_FILES['wcpo-document-file']['name'] );
-//			if ( move_uploaded_file( $_FILES['wcpo-document-file']['tmp_name'], $path ) ) {
-//				echo $upload_dir['url'] . '/wc-purchase-orders/' . basename( $_FILES['wcpo-document-file']['name'] );
-//			}
-//		}
-
-		return;
+		return $path . DIRECTORY_SEPARATOR . $new_file_name;
 	}
 
+	public function process_payment( $order_id ) {
+		$order      = wc_get_order( $order_id );
+		$upload_dir = wp_upload_dir();
+		//file_put_contents( plugin_dir_path( __FILE__ ) . '/nn.log', print_r( $_POST, 1 ) . PHP_EOL, FILE_APPEND );
+		if ( empty( $_POST['wcpo-document-file-path'] ) && empty( $_POST['wcpo-document-number'] ) ) {
+			wc_add_notice( __( 'Purchase order data is required', 'wc-purchase-orders' ), 'error' );
 
+			return;
+		}
+		if ( ! empty( $_POST['wcpo-document-file-path'] ) ) {
+			if ( file_exists( $upload_dir['basedir'] . sanitize_text_field( $_POST['wcpo-document-file-path'] ) ) ) {
+				$new_file_name = $this->rename_document( sanitize_text_field( $_POST['wcpo-document-file-path'] ), $order_id );
+				$order->update_meta_data( '_purchase_order_file_path', sanitize_text_field( $new_file_name ) );
+			} else {
+				wc_add_notice( __( 'Unable to locate the purchase order file, please try uploading it again', 'wc-purchase-orders' ), 'error' );
+
+				return;
+			}
+		}
+
+		if ( ! empty( $_POST['wcpo-document-number'] ) ) {
+			$order->update_meta_data( '_purchase_order_number', sanitize_text_field( $_POST['wcpo-document-number'] ) );
+		}
+
+		return;
+
+//		return array(
+//			'result' => 'success',
+//			'redirect' => $this->get_return_url( $order )
+//		);
+	}
 }
