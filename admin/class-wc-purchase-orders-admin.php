@@ -140,6 +140,15 @@ class Wc_Purchase_Orders_Admin {
 		}
 	}
 
+	/**
+	 * Display the purchase order on order details on email.
+	 *
+	 * @param $order
+	 * @param $sent_to_admin
+	 * @param $plain_text
+	 *
+	 * @return void
+	 */
 	public function purchase_order_data_email( $order, $sent_to_admin, $plain_text ) {
 		$payment_gateway = $order->get_payment_method();
 		if ( $payment_gateway === 'wc-purchase-orders' ) {
@@ -167,6 +176,43 @@ class Wc_Purchase_Orders_Admin {
                     <strong><?php _e( 'Purchase Order Number', 'wc-purchase-orders' ) ?>: </strong>
 					<?php echo esc_html( $purchase_order_number ) ?>
                 </div>
+				<?php
+			}
+		}
+	}
+
+	/**
+	 * Display the purchase order on order details page.
+	 *
+	 * @param $order
+	 *
+	 * @return void
+	 */
+	public function purchase_order_data_order_details( $order ) {
+		$payment_gateway = $order->get_payment_method();
+		if ( $payment_gateway === 'wc-purchase-orders' ) {
+			$upload_dir = wp_upload_dir();
+			$file_path  = $order->get_meta( '_purchase_order_file_path' );
+			if ( $file_path ) {
+				$url = $upload_dir['baseurl'] . $file_path;
+				?>
+                <tr>
+                    <th scope="row"><?php _e( 'Purchase Order Details', 'wc-purchase-orders' ) ?>:</th>
+                    <td>
+                        <a href="<?php echo esc_url( $url ) ?>" download>
+							<?php _e( 'Download purchase order attachment', 'wc-purchase-orders' ) ?>
+                        </a>
+                    </td>
+                </tr>
+				<?php
+			}
+			$purchase_order_number = $order->get_meta( '_purchase_order_number' );
+			if ( $purchase_order_number ) {
+				?>
+                <tr>
+                    <th scope="row"><?php _e( 'Purchase Order Number', 'wc-purchase-orders' ) ?>:</th>
+                    <td><?php echo esc_html( $purchase_order_number ) ?></td>
+                </tr>
 				<?php
 			}
 		}
