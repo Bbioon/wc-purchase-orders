@@ -6,6 +6,9 @@
         const previewArea = $('.wcpo-document-preview');
         if (!this.files.length) {
             previewArea.empty().hide();
+        } else if (this.files[0].size > 2097152) {
+            console.log('file size')
+            alert(wcpo_object.max_file_size)
         } else {
             const file = this.files[0];
             const formData = new FormData();
@@ -36,8 +39,7 @@
             $.ajax({
                 type: "post", dataType: "json", url: wcpo_object.ajax_url, data: {
                     action: "wcpo_delete_purchase_order_file", file_path: file.val(), nonce: wcpo_object.nonce
-                },
-                success: function (response) {
+                }, success: function (response) {
                     console.log(response)
                     file.val('')
                     $('#wcpo-document-file').val('')

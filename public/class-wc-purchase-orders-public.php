@@ -99,9 +99,10 @@ class Wc_Purchase_Orders_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wc-purchase-orders-public.js', array( 'jquery' ), $this->version, true );
 		wp_localize_script( $this->plugin_name, 'wcpo_object', [
-			'ajax_url'  => admin_url( 'admin-ajax.php' ),
-			'icons_url' => plugin_dir_url( __FILE__ ) . 'icons/',
-			'nonce' => wp_create_nonce('wcpo-nonce')
+			'ajax_url'      => admin_url( 'admin-ajax.php' ),
+			'icons_url'     => plugin_dir_url( __FILE__ ) . 'icons/',
+			'nonce'         => wp_create_nonce( 'wcpo-nonce' ),
+			'max_file_size' => __( 'Max file size for the shop order document is 2MB', 'wc-purchase-orders' ),
 		] );
 
 	}
