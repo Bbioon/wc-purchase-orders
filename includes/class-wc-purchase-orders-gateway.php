@@ -16,8 +16,8 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		$this->icon               = false; // URL of the icon that will be displayed on checkout page
 		$this->has_fields         = true; // in case you need a custom credit card form
 		$this->method_title       = __( 'Purchase Orders Gateway', 'wc-purchase-orders' ); //method title for dashboard
-		$this->title              = __( 'Purchase Orders', 'wc-purchase-orders' ); //method title  for checkout page
-		$this->description        = __( 'Pay with Purchase Orders', 'wc-purchase-orders' ); // will be displayed on the checkout page
+		$this->title              = $this->get_option( 'title' ); //method title  for checkout page
+		$this->description        = $this->get_option( 'description' ); // will be displayed on the checkout page
 		$this->method_description = __( 'Pay with Purchase Orders', 'wc-purchase-orders' ); // will be displayed on the options page
 		//$this->rest_url           = $this->get_option( 'pp_rest_url' );
 
@@ -37,7 +37,15 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 				'label'       => __( 'Enable Purchase Orders Gateway', 'wc-purchase-orders' ),
 				'type'        => 'checkbox',
 				'description' => '',
-				'default'     => 'no'
+			),
+			'title'   => array(
+				'title'       => __( 'Title', 'wc-purchase-orders' ),
+				'type'        => 'text',
+				'default'     => 'Purchase Orders',
+			),
+			'description'   => array(
+				'title'       => __( 'Description', 'wc-purchase-orders' ),
+				'type'        => 'textarea',
 			),
 		);
 	}
