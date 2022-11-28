@@ -11,6 +11,50 @@
 class Wc_Purchase_Orders_Files {
 
 	/**
+	 * Check if the plugin directory exists and is writable.
+	 * Display admin notice if the plugin directory is not writable.
+	 * Plugin directory: wp-content/uploads/wc-purchase-orders/
+	 * @return void
+	 */
+	public function dir_writable_admin_notice() {
+		$upload_dir = wp_upload_dir();
+		$writable   = wp_is_writable( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'wc-purchase-orders' );
+		if ( $writable ) {
+			return;
+		}
+
+		$user_id = get_current_user_id();
+		if ( get_user_meta( $user_id, 'wcpo_dismiss_dir_check_notice' ) ) {
+			return;
+		}
+
+		$class   = 'wc-purchase-orders notice notice-warning is-dismissible';
+		$message = __( 'Please make sure this directory is writable to let purchase orders plugin working properly!', 'wc-purchase-orders' ) . ' <code>wp-content/uploads/wc-purchase-orders/</code>';
+
+		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+	}
+
+	/**
+	 * Save dismissed notice state into current user.
+	 * Used on ajax request.
+	 * @return void
+	 */
+	public function set_admin_notice_dismissed() {
+		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'wcpo-nonce' ) ) {
+			$user_id = get_current_user_id();
+			update_user_meta( $user_id, 'wcpo_dismiss_dir_check_notice', 1 );
+			wp_send_json_success( [
+				'message'     => __( 'Notice dismissed!', 'wc-purchase-orders' ),
+				'notice_type' => 'dir_check'
+			] );
+		}
+		wp_send_json_error( [
+			'code'    => 'nonce_failed',
+			'message' => __( 'Failed to pass security check!', 'wc-purchase-orders' )
+		] );
+	}
+
+	/**
 	 * Handle ajax request to upload a purchase order file
 	 * @return void
 	 */
@@ -59,14 +103,13 @@ class Wc_Purchase_Orders_Files {
 					'file_type' => sanitize_text_field( $allowed[ $_FILES['wcpo-document-file']['type'] ] )
 				] );
 			}
-		} else {
-			wp_send_json_error(
-				[
-					'code'    => 'nonce_failed',
-					'message' => __( 'Failed to pass security check!', 'wc-purchase-orders' )
-				]
-			);
 		}
+		wp_send_json_error(
+			[
+				'code'    => 'nonce_failed',
+				'message' => __( 'Failed to pass security check!', 'wc-purchase-orders' )
+			]
+		);
 	}
 
 	/**
@@ -88,7 +131,7 @@ class Wc_Purchase_Orders_Files {
 				//delete file
 				unlink( $upload_dir['basedir'] . sanitize_text_field( $_POST['file_path'] ) );
 				wp_send_json_success( [
-					'message' => __( 'File deleted' )
+					'message' => __( 'File deleted', 'wc-purchase-orders' )
 				] );
 			} else {
 				wp_send_json_error(

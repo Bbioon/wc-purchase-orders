@@ -97,8 +97,11 @@ class Wc_Purchase_Orders_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wc-purchase-orders-admin.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wc-purchase-orders-admin.js', array( 'jquery' ), $this->version, true );
+		wp_localize_script( $this->plugin_name, 'wcpo_object', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'wcpo-nonce' ),
+		) );
 	}
 
 	/**

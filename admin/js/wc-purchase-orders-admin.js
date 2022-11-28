@@ -1,32 +1,14 @@
-(function( $ ) {
-	'use strict';
+(function ($) {
+    'use strict';
 
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
-
-})( jQuery );
+    /**
+     * Send request to dismiss the admin notice and save the state to user profile.
+     */
+    $(document).on('click', '.wc-purchase-orders button.notice-dismiss', function (e) {
+        $.ajax({
+            type: "post", dataType: "application/json", url: wcpo_object.ajax_url, data: {
+                action: "wcpo_dismiss_admin_notice", nonce: wcpo_object.nonce
+            }
+        })
+    });
+})(jQuery);

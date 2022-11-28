@@ -144,6 +144,8 @@ class Wc_Purchase_Orders {
 
 		$file_uploads = new Wc_Purchase_Orders_Files();
 
+		$this->loader->add_action( 'admin_notices', $file_uploads, 'dir_writable_admin_notice' );
+		$this->loader->add_action( 'wp_ajax_wcpo_dismiss_admin_notice', $file_uploads, 'set_admin_notice_dismissed' );
 		$this->loader->add_action( 'wp_ajax_wcpo_upload_purchase_order', $file_uploads, 'file_upload' );
 		$this->loader->add_action( 'wp_ajax_wcpo_delete_purchase_order_file', $file_uploads, 'delete_file' );
 
