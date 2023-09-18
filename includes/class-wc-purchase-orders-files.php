@@ -96,6 +96,7 @@ class Wc_Purchase_Orders_Files {
 			$file_name  = md5( date( 'Y-m-d H:i:s:u' ) ) . '.' . pathinfo( basename( $_FILES['wcpo-document-file']['name'] ), PATHINFO_EXTENSION );
 			$path       = $upload_dir['basedir'] . $dir;
 			wp_mkdir_p( $path );
+			//todo: use wp_handle_upload() here.
 			if ( move_uploaded_file( $_FILES['wcpo-document-file']['tmp_name'], $path . $file_name ) ) {
 				wp_send_json_success( [
 					'file_url'  => $upload_dir['baseurl'] . $dir . $file_name,
