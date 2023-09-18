@@ -83,7 +83,7 @@ class WCPO_Purchase_Orders_Files {
 					]
 				);
 			}
-			if ( $_FILES['wcpo-document-file']['size'] > 2097152 ) { //2 MB (size is also in bytes)
+			if ( $_FILES['wcpo-document-file']['size'] > 2097152 ) { // 2 MB (size is also in bytes)
 				wp_send_json_error(
 					[
 						'code'    => 'file_too_big',
@@ -93,18 +93,33 @@ class WCPO_Purchase_Orders_Files {
 			}
 			$upload_dir = wp_upload_dir();
 			$dir        = DIRECTORY_SEPARATOR . 'wc-purchase-orders' . DIRECTORY_SEPARATOR . $current_year . DIRECTORY_SEPARATOR . $current_month . DIRECTORY_SEPARATOR;
-			$file_name  = md5( date( 'Y-m-d H:i:s:u' ) ) . '.' . pathinfo( basename( sanitize_text_field( $_FILES['wcpo-document-file']['name'] ) ),
-					PATHINFO_EXTENSION );
-			$path       = $upload_dir['basedir'] . $dir;
+			$file_name  = md5( date( 'Y-m-d H:i:s:u' ) ) . '.' . pathinfo( basename( sanitize_text_field( $_FILES['wcpo-document-file']['name'] ) ), PATHINFO_EXTENSION );
+			$path = $upload_dir['basedir'] . $dir;
 			wp_mkdir_p( $path );
-			//todo: use wp_handle_upload() here.
-			if ( move_uploaded_file( sanitize_text_field( $_FILES['wcpo-document-file']['tmp_name'] ), $path . $file_name ) ) {
+			$file = wp_handle_upload( $_FILES['wcpo-document-file'], [
+				'test_type' => true,
+				'action'    => 'wcpo_upload_purchase_order',
+				'mimes'     => array(
+					'pdf'  => 'application/pdf',
+					'doc'  => 'application/msword',
+					'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+				),
+			] );
+			if ( $file && ! isset( $file['error'] ) ) {
+				$new_file_path = $path . $file_name;
+				rename( $file['file'], $new_file_path );
 				wp_send_json_success( [
 					'file_url'  => $upload_dir['baseurl'] . $dir . $file_name,
 					'file_path' => $dir . $file_name,
 					'file_type' => sanitize_text_field( $allowed[ $_FILES['wcpo-document-file']['type'] ] )
 				] );
 			}
+			wp_send_json_error(
+				[
+					'code'    => 'file_error',
+					'message' => esc_html( $file['error'] ),
+				]
+			);
 		}
 		wp_send_json_error(
 			[
