@@ -56,6 +56,7 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		echo '<fieldset id="wc-' . esc_attr( $this->id ) . '-po-form" class="wc-payment-process-form wc-payment-form" style="background:transparent;">';
 		$purchase_order_doc    = __( 'Upload purchase order document file', 'wc-purchase-orders' );
 		$purchase_order_number = __( 'Add purchase order number (optional)', 'wc-purchase-orders' );
+		echo wp_nonce_field('payment_form','purchase-order-nonce');
 		echo '<div class="form-row form-row-wide wcpo-document-upload">
 		<label for="wcpo-document-file"><a>' . $purchase_order_doc . '</a></label>
 		<input id="wcpo-document-file" name="wcpo-document-file" type="file" accept=".doc,.docx,.pdf">
@@ -96,6 +97,13 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		global $woocommerce;
 		$order      = wc_get_order( $order_id );
 		$upload_dir = wp_upload_dir();
+
+		$nonce = sanitize_text_field( $_POST['purchase-order-nonce'] );
+		if ( ! wp_verify_nonce( $nonce, 'payment_form' ) ) {
+			wc_add_notice( __( 'Nonce verification failed. Please try again.', 'wc-purchase-orders' ), 'error' );
+
+			return;
+		}
 
 		if ( ! empty( $_POST['wcpo-document-file-path'] ) ) {
 			if ( file_exists( $upload_dir['basedir'] . sanitize_text_field( $_POST['wcpo-document-file-path'] ) ) ) {
