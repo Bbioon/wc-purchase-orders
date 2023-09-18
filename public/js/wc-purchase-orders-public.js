@@ -22,9 +22,13 @@
                 enctype: 'multipart/form-data',
                 processData: false,
                 success: function (response) {
-                    previewArea.empty().show();
-                    $('input[name="wcpo-document-file-path"]').val(response.data.file_path);
-                    previewArea.append('<span class="wcpo-remove">x</span><span>' + file.name + '</span><img src="' + wcpo_object.icons_url + response.data.file_type + '.png">')
+                    if(response.success) {
+                        previewArea.empty().show();
+                        $('input[name="wcpo-document-file-path"]').val(response.data.file_path);
+                        previewArea.append('<span class="wcpo-remove">x</span><span>' + file.name + '</span><img src="' + wcpo_object.icons_url + response.data.file_type + '.png">')
+                    } else {
+                        alert(response.data.message);
+                    }
                 }
             });
         }
