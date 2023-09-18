@@ -103,8 +103,9 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		}
 
 		if ( ! empty( $_POST['wcpo-document-file-path'] ) ) {
-			if ( file_exists( $upload_dir['basedir'] . sanitize_text_field( $_POST['wcpo-document-file-path'] ) ) ) {
-				$new_file_name = $this->rename_document( sanitize_text_field( $_POST['wcpo-document-file-path'] ), $order_id );
+			$document_file_path = sanitize_text_field( $_POST['wcpo-document-file-path'] );
+			if ( file_exists( $upload_dir['basedir'] . $document_file_path ) ) {
+				$new_file_name = $this->rename_document( $document_file_path, $order_id );
 				$order->update_meta_data( '_purchase_order_file_path', sanitize_text_field( $new_file_name ) );
 			} else {
 				wc_add_notice( __( 'Unable to locate the purchase order file, please try uploading it again', 'wc-purchase-orders' ), 'error' );
