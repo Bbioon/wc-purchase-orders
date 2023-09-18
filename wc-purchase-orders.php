@@ -10,7 +10,7 @@
  *
  * @link              https://bbioon.com
  * @since             1.0.0
- * @package           Wc_Purchase_Orders
+ * @package           WCPO_Purchase_Orders
  *
  * @wordpress-plugin
  * Plugin Name:       WC Purchase Orders
@@ -39,30 +39,30 @@ define( 'WC_PURCHASE_ORDERS_VERSION', '1.0.0' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-wc-purchase-orders-activator.php
+ * This action is documented in includes/class-wcpo-purchase-orders-activator.php
  */
-function activate_wc_shop_orders() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-purchase-orders-activator.php';
-	Wc_Purchase_Orders_Activator::activate();
+function wcpo_activate() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wcpo-purchase-orders-activator.php';
+	WCPO_Purchase_Orders_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-wc-purchase-orders-deactivator.php
+ * This action is documented in includes/class-wcpo-purchase-orders-deactivator.php
  */
-function deactivate_wc_shop_orders() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-purchase-orders-deactivator.php';
-	Wc_Purchase_Orders_Deactivator::deactivate();
+function wcpo_deactivate() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wcpo-purchase-orders-deactivator.php';
+	WCPO_Purchase_Orders_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_wc_shop_orders' );
-register_deactivation_hook( __FILE__, 'deactivate_wc_shop_orders' );
+register_activation_hook( __FILE__, 'wcpo_activate' );
+register_deactivation_hook( __FILE__, 'wcpo_deactivate' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-wc-purchase-orders.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-wcpo-purchase-orders.php';
 
 /**
  * Begins execution of the plugin.
@@ -75,7 +75,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wc-purchase-orders.php';
  */
 function run_wc_shop_orders() {
 
-	$plugin = new Wc_Purchase_Orders();
+	$plugin = new WCPO_Purchase_Orders();
 	$plugin->run();
 
 }

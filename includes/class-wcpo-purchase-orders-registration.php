@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @subpackage Woocommerce_Payment_Processor/includes
  * @author     AHMAD WAEL <dev.ahmedwael@gmail.com>
  */
-class Wc_Purchase_Orders_Gateway_Registration {
+class WCPO_Purchase_Orders_Gateway_Registration {
 
 	/**
 	 * Load the payment gateway class
@@ -28,7 +28,7 @@ class Wc_Purchase_Orders_Gateway_Registration {
 	 */
 	public function load_payment_gateway() {
 		if ( class_exists( 'woocommerce' ) ) { //check if woocommerce is installed and activated
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-purchase-orders-gateway.php';
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wcpo-purchase-orders-gateway.php';
 		}
 	}
 

@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @link       https://bbioon.com
  * @since      1.0.0
  *
- * @package    Wc_Purchase_Orders
- * @subpackage Wc_Purchase_Orders/includes
+ * @package    WCPO_Purchase_Orders
+ * @subpackage WCPO_Purchase_Orders/includes
  */
 
 /**
@@ -16,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Wc_Purchase_Orders
- * @subpackage Wc_Purchase_Orders/includes
+ * @package    WCPO_Purchase_Orders
+ * @subpackage WCPO_Purchase_Orders/includes
  * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
-class Wc_Purchase_Orders_Deactivator {
+class WCPO_Purchase_Orders_Deactivator {
 
 	/**
 	 * Short Description. (use period)

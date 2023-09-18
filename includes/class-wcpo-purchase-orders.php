@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @link       https://bbioon.com
  * @since      1.0.0
  *
- * @package    Wc_Purchase_Orders
- * @subpackage Wc_Purchase_Orders/includes
+ * @package    WCPO_Purchase_Orders
+ * @subpackage WCPO_Purchase_Orders/includes
  */
 
 /**
@@ -23,11 +23,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Wc_Purchase_Orders
- * @subpackage Wc_Purchase_Orders/includes
+ * @package    WCPO_Purchase_Orders
+ * @subpackage WCPO_Purchase_Orders/includes
  * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
-class Wc_Purchase_Orders {
+class WCPO_Purchase_Orders {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Wc_Purchase_Orders {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Wc_Purchase_Orders_Loader $loader Maintains and registers all hooks for the plugin.
+	 * @var      WCPO_Purchase_Orders_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -106,43 +106,43 @@ class Wc_Purchase_Orders {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-purchase-orders-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wcpo-purchase-orders-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-purchase-orders-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wcpo-purchase-orders-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wc-purchase-orders-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wcpo-purchase-orders-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wc-purchase-orders-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wcpo-purchase-orders-public.php';
 
 		/**
 		 * Load the payment processor registration class.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-purchase-orders-registration.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wcpo-purchase-orders-registration.php';
 
 		/**
 		 * Load user profile functionality.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-purchase-orders-user-profile.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-purchase-orders-files.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wcpo-purchase-orders-user-profile.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wcpo-purchase-orders-files.php';
 
-		$this->loader = new Wc_Purchase_Orders_Loader();
+		$this->loader = new WCPO_Purchase_Orders_Loader();
 
 	}
 
 	private function handle_file_uploads() {
 
-		$file_uploads = new Wc_Purchase_Orders_Files();
+		$file_uploads = new WCPO_Purchase_Orders_Files();
 
 		$this->loader->add_action( 'admin_notices', $file_uploads, 'dir_writable_admin_notice' );
 		$this->loader->add_action( 'wp_ajax_wcpo_dismiss_admin_notice', $file_uploads, 'set_admin_notice_dismissed' );
@@ -153,7 +153,7 @@ class Wc_Purchase_Orders {
 
 	private function register_payment_class() {
 
-		$payment_class = new Wc_Purchase_Orders_Gateway_Registration();
+		$payment_class = new WCPO_Purchase_Orders_Gateway_Registration();
 
 		$this->loader->add_filter( 'woocommerce_payment_gateways', $payment_class, 'load_payment_gateway_class' );
 		$this->loader->add_filter( 'woocommerce_available_payment_gateways', $payment_class, 'allowed_purchase_order_users' );
@@ -163,7 +163,7 @@ class Wc_Purchase_Orders {
 
 	private function user_profile_settings() {
 
-		$user_profile = new Wc_Purchase_Orders_User_Profile();
+		$user_profile = new WCPO_Purchase_Orders_User_Profile();
 
 		$this->loader->add_action( 'show_user_profile', $user_profile, 'user_purchase_orders_enable' );
 		$this->loader->add_action( 'edit_user_profile', $user_profile, 'user_purchase_orders_enable' );
@@ -183,7 +183,7 @@ class Wc_Purchase_Orders {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Wc_Purchase_Orders_i18n();
+		$plugin_i18n = new WCPO_Purchase_Orders_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -198,7 +198,7 @@ class Wc_Purchase_Orders {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Wc_Purchase_Orders_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new WCPO_Purchase_Orders_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -217,7 +217,7 @@ class Wc_Purchase_Orders {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Wc_Purchase_Orders_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new WCPO_Purchase_Orders_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -247,7 +247,7 @@ class Wc_Purchase_Orders {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @return    Wc_Purchase_Orders_Loader    Orchestrates the hooks of the plugin.
+	 * @return    WCPO_Purchase_Orders_Loader    Orchestrates the hooks of the plugin.
 	 * @since     1.0.0
 	 */
 	public function get_loader() {
