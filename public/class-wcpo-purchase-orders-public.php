@@ -103,6 +103,7 @@ class WCPO_Purchase_Orders_Public {
 			'icons_url'     => plugin_dir_url( __FILE__ ) . 'icons/',
 			'nonce'         => wp_create_nonce( 'wcpo-nonce' ),
 			'max_file_size' => __( 'Max file size for the shop order document is 2MB', 'wc-purchase-orders' ),
+			'upload_error'  => __( 'Failed to upload the file, please try again!', 'wc-purchase-orders' ),
 		] );
 
 	}
