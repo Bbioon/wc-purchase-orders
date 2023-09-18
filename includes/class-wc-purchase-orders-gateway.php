@@ -83,12 +83,11 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 	}
 
 	private function rename_document( $file_path, $order_id ) {
-		$upload_dir    = wp_upload_dir();
 		$file_name     = basename( $file_path );
 		$ext           = pathinfo( $file_name, PATHINFO_EXTENSION );
 		$path          = dirname( $file_path );
 		$new_file_name = 'purchase-order-' . $order_id . '.' . $ext;
-		rename( $upload_dir['basedir'] . $file_path, $upload_dir['basedir'] . $path . DIRECTORY_SEPARATOR . $new_file_name );
+		rename( wp_upload_dir()['basedir'] . $file_path, wp_upload_dir()['basedir'] . $path . DIRECTORY_SEPARATOR . $new_file_name );
 
 		return $path . DIRECTORY_SEPARATOR . $new_file_name;
 	}

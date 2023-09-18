@@ -126,10 +126,9 @@ class Wc_Purchase_Orders_Files {
 					]
 				);
 			}
-			$upload_dir = wp_upload_dir();
-			if ( file_exists( $upload_dir['basedir'] . sanitize_text_field( $_POST['file_path'] ) ) ) {
+			if ( file_exists( wp_upload_dir()['basedir'] . sanitize_text_field( $_POST['file_path'] ) ) ) {
 				//delete file
-				unlink( $upload_dir['basedir'] . sanitize_text_field( $_POST['file_path'] ) );
+				unlink( wp_upload_dir()['basedir'] . sanitize_text_field( $_POST['file_path'] ) );
 				wp_send_json_success( [
 					'message' => __( 'File deleted', 'wc-purchase-orders' )
 				] );
