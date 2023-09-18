@@ -13,8 +13,9 @@
             const formData = new FormData();
             formData.append('wcpo-document-file', file);
             formData.append('nonce', wcpo_object.nonce);
+            formData.append('action', 'wcpo_upload_purchase_order');
             $.ajax({
-                url: wcpo_object.ajax_url + '?action=wcpo_upload_purchase_order',
+                url: wcpo_object.ajax_url,
                 type: 'POST',
                 data: formData,
                 contentType: false,
