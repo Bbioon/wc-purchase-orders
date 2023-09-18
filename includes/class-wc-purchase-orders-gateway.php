@@ -54,11 +54,9 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		parent::payment_fields();
 		do_action( 'wcpo_before_form' );
 		echo '<fieldset id="wc-' . esc_attr( $this->id ) . '-po-form" class="wc-payment-process-form wc-payment-form" style="background:transparent;">';
-		$purchase_order_doc    = __( 'Upload purchase order document file', 'wc-purchase-orders' );
-		$purchase_order_number = __( 'Add purchase order number (optional)', 'wc-purchase-orders' );
 		echo wp_nonce_field('payment_form','purchase-order-nonce');
 		echo '<div class="form-row form-row-wide wcpo-document-upload">
-		<label for="wcpo-document-file"><a>' . $purchase_order_doc . '</a></label>
+		<label for="wcpo-document-file"><a>' . esc_html__( 'Upload purchase order document file', 'wc-purchase-orders' ) . '</a></label>
 		<input id="wcpo-document-file" name="wcpo-document-file" type="file" accept=".doc,.docx,.pdf">
 		<input type="hidden" name="wcpo-document-file-path">
 		<div class="clear"></div>
@@ -66,7 +64,7 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		<div class="form-row form-row-wide">
 		<div class="wcpo-document-preview"></div>
 		</div>
-		<div class="form-row form-row-wide"><label>' . $purchase_order_number . '</label>
+		<div class="form-row form-row-wide"><label>' . esc_html__( 'Add purchase order number (optional)', 'wc-purchase-orders' ) . '</label>
 		<input id="wcpo-document-number" name="wcpo-document-number" type="text">
 		</div></fieldset>';
 
