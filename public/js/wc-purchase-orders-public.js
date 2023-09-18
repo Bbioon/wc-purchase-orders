@@ -39,7 +39,6 @@
                 type: "post", dataType: "json", url: wcpo_object.ajax_url, data: {
                     action: "wcpo_delete_purchase_order_file", file_path: file.val(), nonce: wcpo_object.nonce
                 }, success: function (response) {
-                    console.log(response)
                     file.val('')
                     $('#wcpo-document-file').val('')
                 }
