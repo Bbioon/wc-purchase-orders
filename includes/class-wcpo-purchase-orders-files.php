@@ -166,4 +166,25 @@ class WCPO_Purchase_Orders_Files {
 			);
 		}
 	}
+
+	/**
+	 * Let WordPress know about DOCX and DOC files.
+	 *
+	 * @return mixed
+	 */
+	function check_filetypes( $data, $file, $filename, $mimes, $real_mime ) {
+		if ( ! empty( $data['ext'] ) && ! empty( $data['type'] ) ) {
+			return $data;
+		}
+		$wp_file_type = wp_check_filetype( $filename, $mimes );
+		if ( 'docx' === $wp_file_type['ext'] ) {
+			$data['ext']  = 'docx';
+			$data['type'] = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+		} elseif ( 'doc' === $wp_file_type['ext'] ) {
+			$data['ext']  = 'doc';
+			$data['type'] = 'application/msword';
+		}
+
+		return $data;
+	}
 }
