@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WC_PURCHASE_ORDERS_VERSION', '1.0.0' );
+define( 'BBPO_PURCHASE_ORDERS_VERSION', '1.0.0' );
 
 /**
  * The code that runs during plugin activation.
@@ -73,10 +73,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-bbpo-purchase-orders.php';
  *
  * @since    1.0.0
  */
-function run_wc_shop_orders() {
+function bbpo_run_wc_shop_orders() {
 
 	$plugin = new BBPO_Purchase_Orders();
 	$plugin->run();
 
 }
-run_wc_shop_orders();
+bbpo_run_wc_shop_orders();

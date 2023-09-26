@@ -68,7 +68,7 @@ class BBPO_Purchase_Orders {
 	 */
 	public function __construct() {
 		if ( defined( 'WC_PURCHASE_ORDERS_VERSION' ) ) {
-			$this->version = WC_PURCHASE_ORDERS_VERSION;
+			$this->version = BBPO_PURCHASE_ORDERS_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
