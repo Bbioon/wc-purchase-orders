@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @link       https://bbioon.com
  * @since      1.0.0
  *
- * @package    WCPO_Purchase_Orders
- * @subpackage WCPO_Purchase_Orders/includes
+ * @package    BBPO_Purchase_Orders
+ * @subpackage BBPO_Purchase_Orders/includes
  */
 
 /**
@@ -20,11 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    WCPO_Purchase_Orders
- * @subpackage WCPO_Purchase_Orders/includes
+ * @package    BBPO_Purchase_Orders
+ * @subpackage BBPO_Purchase_Orders/includes
  * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
-class WCPO_Purchase_Orders_i18n {
+class BBPO_Purchase_Orders_i18n {
 
 
 	/**

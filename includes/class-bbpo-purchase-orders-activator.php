@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @link       https://bbioon.com
  * @since      1.0.0
  *
- * @package    WCPO_Purchase_Orders
- * @subpackage WCPO_Purchase_Orders/includes
+ * @package    BBPO_Purchase_Orders
+ * @subpackage BBPO_Purchase_Orders/includes
  */
 
 /**
@@ -16,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    WCPO_Purchase_Orders
- * @subpackage WCPO_Purchase_Orders/includes
+ * @package    BBPO_Purchase_Orders
+ * @subpackage BBPO_Purchase_Orders/includes
  * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
-class WCPO_Purchase_Orders_Activator {
+class BBPO_Purchase_Orders_Activator {
 
 	private static function create_plugin_folders() {
 		$upload            = wp_upload_dir();

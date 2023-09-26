@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @link       https://bbioon.com
  * @since      1.0.0
  *
- * @package    WCPO_Purchase_Orders
- * @subpackage WCPO_Purchase_Orders/includes
+ * @package    BBPO_Purchase_Orders
+ * @subpackage BBPO_Purchase_Orders/includes
  */
 
 /**
@@ -17,11 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    WCPO_Purchase_Orders
- * @subpackage WCPO_Purchase_Orders/includes
+ * @package    BBPO_Purchase_Orders
+ * @subpackage BBPO_Purchase_Orders/includes
  * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
-class WCPO_Purchase_Orders_Loader {
+class BBPO_Purchase_Orders_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

@@ -22,7 +22,7 @@
  * @link       https://bbioon.com
  * @since      1.0.0
  *
- * @package    WCPO_Purchase_Orders
+ * @package    BBPO_Purchase_Orders
  */
 
 // If uninstall not called from WordPress, then exit.

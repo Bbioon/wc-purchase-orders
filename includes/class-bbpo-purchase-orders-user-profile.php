@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @subpackage Woocommerce_Payment_Processor/includes
  * @author     AHMAD WAEL <dev.ahmedwael@gmail.com>
  */
-class WCPO_Purchase_Orders_User_Profile {
+class BBPO_Purchase_Orders_User_Profile {
 
 	/**
 	 * Display user profile fields for enable/disable purchase orders.

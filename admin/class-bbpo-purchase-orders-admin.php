@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @link       https://bbioon.com
  * @since      1.0.0
  *
- * @package    WCPO_Purchase_Orders
- * @subpackage WCPO_Purchase_Orders/admin
+ * @package    BBPO_Purchase_Orders
+ * @subpackage BBPO_Purchase_Orders/admin
  */
 
 /**
@@ -16,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    WCPO_Purchase_Orders
- * @subpackage WCPO_Purchase_Orders/admin
+ * @package    BBPO_Purchase_Orders
+ * @subpackage BBPO_Purchase_Orders/admin
  * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
-class WCPO_Purchase_Orders_Admin {
+class BBPO_Purchase_Orders_Admin {
 
 	/**
 	 * The ID of this plugin.
