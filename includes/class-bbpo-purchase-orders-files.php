@@ -31,7 +31,7 @@ class BBPO_Purchase_Orders_Files {
 		$class   = 'wc-purchase-orders notice notice-warning is-dismissible';
 		$message = __( 'Please make sure this directory is writable to let purchase orders plugin working properly!', 'wc-purchase-orders' ) . ' <code>wp-content/uploads/wc-purchase-orders/</code>';
 
-		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
 	}
 
 	/**
@@ -40,17 +40,17 @@ class BBPO_Purchase_Orders_Files {
 	 * @return void
 	 */
 	public function set_admin_notice_dismissed() {
-		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'wcpo-nonce' ) ) {
+		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wcpo-nonce' ) ) {
 			$user_id = get_current_user_id();
 			update_user_meta( $user_id, 'wcpo_dismiss_dir_check_notice', 1 );
 			wp_send_json_success( [
-				'message'     => __( 'Notice dismissed!', 'wc-purchase-orders' ),
+				'message'     => esc_html__( 'Notice dismissed!', 'wc-purchase-orders' ),
 				'notice_type' => 'dir_check'
 			] );
 		}
 		wp_send_json_error( [
 			'code'    => 'nonce_failed',
-			'message' => __( 'Failed to pass security check!', 'wc-purchase-orders' )
+			'message' => esc_html__( 'Failed to pass security check!', 'wc-purchase-orders' )
 		] );
 	}
 
@@ -59,7 +59,7 @@ class BBPO_Purchase_Orders_Files {
 	 * @return void
 	 */
 	public function file_upload() {
-		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'wcpo-nonce' ) ) {
+		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wcpo-nonce' ) ) {
 			$current_year  = date( "Y" );
 			$current_month = date( "m" );
 			$allowed       = array(
@@ -71,7 +71,7 @@ class BBPO_Purchase_Orders_Files {
 				wp_send_json_error(
 					[
 						'code'    => 'file_not_provided',
-						'message' => __( 'This file you are trying to upload is missing!', 'wc-purchase-orders' )
+						'message' => esc_html__( 'This file you are trying to upload is missing!', 'wc-purchase-orders' )
 					]
 				);
 			}
@@ -79,7 +79,7 @@ class BBPO_Purchase_Orders_Files {
 				wp_send_json_error(
 					[
 						'code'    => 'file_not_allowed',
-						'message' => __( 'This file is not allowed!', 'wc-purchase-orders' )
+						'message' => esc_html__( 'This file is not allowed!', 'wc-purchase-orders' )
 					]
 				);
 			}
@@ -87,7 +87,7 @@ class BBPO_Purchase_Orders_Files {
 				wp_send_json_error(
 					[
 						'code'    => 'file_too_big',
-						'message' => __( 'Max file size is 2MB', 'wc-purchase-orders' )
+						'message' => esc_html__( 'Max file size is 2MB', 'wc-purchase-orders' )
 					]
 				);
 			}
@@ -124,7 +124,7 @@ class BBPO_Purchase_Orders_Files {
 		wp_send_json_error(
 			[
 				'code'    => 'nonce_failed',
-				'message' => __( 'Failed to pass security check!', 'wc-purchase-orders' )
+				'message' => esc_html__( 'Failed to pass security check!', 'wc-purchase-orders' )
 			]
 		);
 	}
@@ -134,12 +134,12 @@ class BBPO_Purchase_Orders_Files {
 	 * @return void
 	 */
 	public function delete_file() {
-		if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( $_REQUEST['nonce'], 'wcpo-nonce' ) ) {
+		if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'wcpo-nonce' ) ) {
 			if ( empty( $_POST['file_path'] ) ) {
 				wp_send_json_error(
 					[
 						'code'    => 'file_path_required',
-						'message' => __( 'File path is required', 'wc-purchase-orders' )
+						'message' => esc_html__( 'File path is required', 'wc-purchase-orders' )
 					]
 				);
 			}
@@ -147,13 +147,13 @@ class BBPO_Purchase_Orders_Files {
 				//delete file
 				unlink( wp_upload_dir()['basedir'] . sanitize_text_field( $_POST['file_path'] ) );
 				wp_send_json_success( [
-					'message' => __( 'File deleted', 'wc-purchase-orders' )
+					'message' => esc_html__( 'File deleted', 'wc-purchase-orders' )
 				] );
 			} else {
 				wp_send_json_error(
 					[
 						'code'    => 'file_not_found',
-						'message' => __( 'File requested is not exists!', 'wc-purchase-orders' )
+						'message' => esc_html__( 'File requested is not exists!', 'wc-purchase-orders' )
 					]
 				);
 			}
@@ -161,7 +161,7 @@ class BBPO_Purchase_Orders_Files {
 			wp_send_json_error(
 				[
 					'code'    => 'nonce_failed',
-					'message' => __( 'Failed to pass security check!', 'wc-purchase-orders' )
+					'message' => esc_html__( 'Failed to pass security check!', 'wc-purchase-orders' )
 				]
 			);
 		}

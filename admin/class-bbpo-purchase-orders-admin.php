@@ -117,7 +117,7 @@ class BBPO_Purchase_Orders_Admin {
 			$upload_dir = wp_upload_dir();
 			?>
             <br class="clear"/>
-            <h3><?php _e( 'Purchase Order Details', 'wc-purchase-orders' ) ?></h3>
+            <h3><?php esc_html_e( 'Purchase Order Details', 'wc-purchase-orders' ) ?></h3>
 			<?php
 			$file_path = $order->get_meta( '_purchase_order_file_path' );
 			if ( $file_path ) {
@@ -135,7 +135,7 @@ class BBPO_Purchase_Orders_Admin {
 				?>
                 <br/>
                 <div class="purchase-order-number">
-                    <strong><?php _e( 'Purchase Order Number', 'wc-purchase-orders' ) ?>: </strong>
+                    <strong><?php esc_html_e( 'Purchase Order Number', 'wc-purchase-orders' ) ?>: </strong>
 					<?php echo esc_html( $purchase_order_number ) ?>
                 </div>
 				<?php
@@ -158,7 +158,7 @@ class BBPO_Purchase_Orders_Admin {
 			$upload_dir = wp_upload_dir();
 			?>
             <br class="clear"/>
-            <h3><?php _e( 'Purchase Order Details', 'wc-purchase-orders' ) ?></h3>
+            <h3><?php esc_html_e( 'Purchase Order Details', 'wc-purchase-orders' ) ?></h3>
 			<?php
 			$file_path = $order->get_meta( '_purchase_order_file_path' );
 			if ( $file_path ) {
@@ -166,7 +166,7 @@ class BBPO_Purchase_Orders_Admin {
 				?>
                 <div class="purchase-order-document-file">
                     <a href="<?php echo esc_url( $url ) ?>" download>
-						<?php _e( 'Download purchase order attachment', 'wc-purchase-orders' ) ?>
+						<?php esc_html_e( 'Download purchase order attachment', 'wc-purchase-orders' ) ?>
                     </a>
                 </div>
 				<?php
@@ -176,7 +176,7 @@ class BBPO_Purchase_Orders_Admin {
 				?>
                 <br/>
                 <div class="purchase-order-number">
-                    <strong><?php _e( 'Purchase Order Number', 'wc-purchase-orders' ) ?>: </strong>
+                    <strong><?php esc_html_e( 'Purchase Order Number', 'wc-purchase-orders' ) ?>: </strong>
 					<?php echo esc_html( $purchase_order_number ) ?>
                 </div>
 				<?php
@@ -213,7 +213,7 @@ class BBPO_Purchase_Orders_Admin {
 			if ( $purchase_order_number ) {
 				?>
                 <tr>
-                    <th scope="row"><?php _e( 'Purchase Order Number', 'wc-purchase-orders' ) ?>:</th>
+                    <th scope="row"><?php esc_html_e( 'Purchase Order Number', 'wc-purchase-orders' ) ?>:</th>
                     <td><?php echo esc_html( $purchase_order_number ) ?></td>
                 </tr>
 				<?php

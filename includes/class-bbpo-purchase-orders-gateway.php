@@ -54,7 +54,7 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		parent::payment_fields();
 		do_action( 'wcpo_before_form' );
 		echo '<fieldset id="wc-' . esc_attr( $this->id ) . '-po-form" class="wc-payment-process-form wc-payment-form" style="background:transparent;">';
-		echo wp_nonce_field('payment_form','purchase-order-nonce');
+		wp_nonce_field('payment_form','purchase-order-nonce');
 		echo '<div class="form-row form-row-wide wcpo-document-upload">
 		<label for="wcpo-document-file"><a>' . esc_html__( 'Upload purchase order document file', 'wc-purchase-orders' ) . '</a></label>
 		<input id="wcpo-document-file" name="wcpo-document-file" type="file" accept=".doc,.docx,.pdf">
