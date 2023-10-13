@@ -125,7 +125,7 @@ class BBPO_Purchase_Orders_Admin {
 				?>
                 <div class="purchase-order-document-file">
                     <a href="<?php echo esc_url( $url ) ?>" download>
-						<?php _e( 'Download purchase order attachment', 'wc-purchase-orders' ) ?>
+						<?php esc_html_e( 'Download purchase order attachment', 'wc-purchase-orders' ) ?>
                     </a>
                 </div>
 				<?php
@@ -200,10 +200,10 @@ class BBPO_Purchase_Orders_Admin {
 				$url = $upload_dir['baseurl'] . $file_path;
 				?>
                 <tr>
-                    <th scope="row"><?php _e( 'Purchase Order Details', 'wc-purchase-orders' ) ?>:</th>
+                    <th scope="row"><?php esc_html_e( 'Purchase Order Details', 'wc-purchase-orders' ) ?>:</th>
                     <td>
                         <a href="<?php echo esc_url( $url ) ?>" download>
-							<?php _e( 'Download purchase order attachment', 'wc-purchase-orders' ) ?>
+							<?php esc_html_e( 'Download purchase order attachment', 'wc-purchase-orders' ) ?>
                         </a>
                     </td>
                 </tr>

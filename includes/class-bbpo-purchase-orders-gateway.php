@@ -15,10 +15,10 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		$this->id                 = 'wc-purchase-orders';
 		$this->icon               = false; // URL of the icon that will be displayed on checkout page
 		$this->has_fields         = true; // in case you need a custom credit card form
-		$this->method_title       = __( 'Purchase Orders Gateway', 'wc-purchase-orders' ); //method title for dashboard
+		$this->method_title       = esc_html__( 'Purchase Orders Gateway', 'wc-purchase-orders' ); //method title for dashboard
 		$this->title              = $this->get_option( 'title' ); //method title  for checkout page
 		$this->description        = $this->get_option( 'description' ); // will be displayed on the checkout page
-		$this->method_description = __( 'Pay with Purchase Orders', 'wc-purchase-orders' ); // will be displayed on the options page
+		$this->method_description = esc_html__( 'Pay with Purchase Orders', 'wc-purchase-orders' ); // will be displayed on the options page
 		//$this->rest_url           = $this->get_option( 'pp_rest_url' );
 
 		$this->init_form_fields();
@@ -34,17 +34,17 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		$this->form_fields = array(
 			'enabled' => array(
 				'title'       => 'Enable/Disable',
-				'label'       => __( 'Enable Purchase Orders Gateway', 'wc-purchase-orders' ),
+				'label'       => esc_html__( 'Enable Purchase Orders Gateway', 'wc-purchase-orders' ),
 				'type'        => 'checkbox',
 				'description' => '',
 			),
 			'title'   => array(
-				'title'       => __( 'Title', 'wc-purchase-orders' ),
+				'title'       => esc_html__( 'Title', 'wc-purchase-orders' ),
 				'type'        => 'text',
 				'default'     => 'Purchase Orders',
 			),
 			'description'   => array(
-				'title'       => __( 'Description', 'wc-purchase-orders' ),
+				'title'       => esc_html__( 'Description', 'wc-purchase-orders' ),
 				'type'        => 'textarea',
 			),
 		);
@@ -97,7 +97,7 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 
 		$nonce = sanitize_text_field( $_POST['purchase-order-nonce'] );
 		if ( ! wp_verify_nonce( $nonce, 'payment_form' ) ) {
-			wc_add_notice( __( 'Nonce verification failed. Please try again.', 'wc-purchase-orders' ), 'error' );
+			wc_add_notice( esc_html__( 'Nonce verification failed. Please try again.', 'wc-purchase-orders' ), 'error' );
 
 			return;
 		}
@@ -108,12 +108,12 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 				$new_file_name = $this->rename_document( $document_file_path, $order_id );
 				$order->update_meta_data( '_purchase_order_file_path', sanitize_text_field( $new_file_name ) );
 			} else {
-				wc_add_notice( __( 'Unable to locate the purchase order file, please try uploading it again', 'wc-purchase-orders' ), 'error' );
+				wc_add_notice( esc_html__( 'Unable to locate the purchase order file, please try uploading it again', 'wc-purchase-orders' ), 'error' );
 
 				return;
 			}
 		} else {
-			wc_add_notice( __( 'Purchase order file is required', 'wc-purchase-orders' ), 'error' );
+			wc_add_notice( esc_html__( 'Purchase order file is required', 'wc-purchase-orders' ), 'error' );
 
 			return;
 		}
@@ -121,7 +121,7 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		if ( ! empty( $_POST['wcpo-document-number'] ) ) {
 			$order->update_meta_data( '_purchase_order_number', sanitize_text_field( $_POST['wcpo-document-number'] ) );
 		}
-		$order->update_status( 'on-hold', __( 'Awaiting purchase order review', 'wc-purchase-orders' ) );
+		$order->update_status( 'on-hold', esc_html__( 'Awaiting purchase order review', 'wc-purchase-orders' ) );
 
 		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
 			$order->reduce_order_stock();
