@@ -1,57 +1,73 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
-Donate link: https://bbioon.com
-Tags: comments, spam
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+=== WooCommerce Purchase Orders ===
+Tags: woocommerce, purchase orders, payment gateway, documents, orders, manager, order approval
+Requires at least: 4.7
+Tested up to: 5.9
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
-
 == Description ==
 
-The WooCommerce Purchase Orders Plugin adds a new payment gateway option to your WooCommerce store, allowing customers to submit purchase orders by uploading PDF or DOCX files and providing a purchase order number. This plugin enhances the functionality of your store by streamlining the purchase order process and integrating it seamlessly into the existing WooCommerce system.
+WooCommerce Purchase Orders is a plugin that seamlessly integrates with WooCommerce, empowering your store to accept purchase orders as a payment method. This plugin creates a new payment gateway that facilitates the submission of purchase orders by allowing customers to upload necessary document files.
 
-With this plugin, your customers can easily submit purchase orders instead of making immediate payments during checkout. This is especially useful for businesses, organizations, or institutions that prefer to use purchase orders for their procurement process. The uploaded files and purchase order numbers are then attached to the respective orders for convenient review and processing.
+Shop managers can then review the uploaded documents and approve the order, streamlining the purchasing process. The uploaded documents are accessible on the order page in the customer profile, admin order pages, and are included in order detail emails.
 
-## Key Features
+This plugin is compatible with WooCommerce versions greater than 3.0, ensuring a smooth and efficient integration with the latest WooCommerce features and updates.
 
-- Enable purchase orders as a payment option on your WooCommerce store.
-- Customers can upload PDF or DOCX files along with their purchase order.
-- Customers can provide a purchase order number for reference.
-- Streamline the purchase order process and integrate it into WooCommerce.
-- The uploaded files and purchase order numbers are attached to the orders for easy review.
+== Features ==
 
-## Usage
-
-Once the WooCommerce Purchase Orders Plugin is installed and activated, customers can select the "Purchase Orders" option during checkout. They will be prompted to upload a PDF or DOCX file containing their purchase order and provide a purchase order number for reference.
-
-Upon successful submission, the purchase order details will be associated with the order and can be accessed by the store owner or administrators for review. The purchase order files will be available for download, and the purchase order number will be displayed in the order details.
+- Introduces a purchase order payment gateway in WooCommerce.
+- Allows customers to upload document files for purchase orders.
+- Securily storing files.
+- Enables shop managers to review and approve orders.
+- Documents are accessible on order pages, customer profiles, and in order detail emails.
+- Compatibility with WooCommerce versions greater than 3.0.
 
 == Installation ==
 
-To install the WooCommerce Purchase Orders Plugin, follow these steps:
-
-1. Download the plugin ZIP file.
-2. Log in to your WordPress admin dashboard.
-3. Go to "Plugins" > "Add New" and click on the "Upload Plugin" button.
-4. Choose the downloaded ZIP file and click on the "Install Now" button.
-5. Once the plugin is installed, click on the "Activate" button to activate it.
-6. Navigate to "WooCommerce" > "Settings" > "Payments" and enable the "Purchase Orders" payment gateway.
-7. Configure the plugin settings according to your requirements.
+1. Upload the 'woocommerce-purchase-orders' folder to the '/wp-content/plugins/' directory or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the 'Plugins' screen in WordPress.
+3. Go to WooCommerce > Settings > Payments and enable the 'Purchase Orders' payment method.
+4. Customize settings and manage purchase orders from the WooCommerce settings.
 
 == Frequently Asked Questions ==
 
-**Q: Can customers still make immediate payments using this plugin?**
+= Is this plugin compatible with the latest WooCommerce versions? =
+Yes, this plugin is compatible with WooCommerce versions greater than 3.0.
 
-A: No, this plugin is specifically designed to allow customers to submit purchase orders instead of making immediate payments. If you require immediate payment options, you can continue to offer other payment gateways alongside the Purchase Orders option.
+= How do customers upload documents for their purchase orders? =
+Customers can upload necessary document files during the checkout process when selecting the 'Purchase Order' payment method.
 
-**Q: What file formats are supported for purchase order uploads?**
+= Can shop managers review and approve orders easily? =
+Yes, shop managers can conveniently review uploaded documents and approve orders directly from the WooCommerce order pages.
 
-A: Currently, customers can upload PDF or DOCX files as purchase orders. The plugin validates the file formats and ensures compatibility.
+== Changelog ==
 
-**Q: Are there any size limitations for the uploaded files?**
+= 1.0.0 =
+* Initial release
 
-A: By default, the plugin allows files up to 10MB in size. However, you can adjust this limit in the plugin settings according to your requirements.
+== Upgrade Notice ==
+
+= 1.0.0 =
+Initial release. No upgrade necessary.
+
+== Development ==
+
+This plugin is open source, and you can contribute to its development on [GitHub](https://github.com/Bbioon/wc-purchase-orders).
+
+== License ==
+
+This plugin is licensed under the GNU General Public License v2 or later.
+
+== Contact ==
+
+For any inquiries, issues, or suggestions, please contact Ahmad Wael:
+- Twitter: [@devwael](https://twitter.com/devwael)
+- Hire me on Codeable: [Ahmad Wael on Codeable](https://www.codeable.io/developers/ahmad-wael/)
+- Get to know Ahmad Wael: [YouTube - Meet Ahmad Wael](https://www.youtube.com/watch?v=sBlZoJ9apTw)
+- Website: [bbioon.com](https://www.bbioon.com)
+
+== Credits ==
+
+This plugin was created by Ahmad Wael, inspired by the needs of WooCommerce stores requiring purchase order functionalities.
+
