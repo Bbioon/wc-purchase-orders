@@ -1,5 +1,9 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
 /**
  * The purchase orders payment gateway class for woocommerce.
  *
@@ -11,7 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 
 	public function __construct() {
-
 		$this->id                 = 'wc-purchase-orders';
 		$this->icon               = false; // URL of the icon that will be displayed on checkout page
 		$this->has_fields         = true; // in case you need a custom credit card form
@@ -25,27 +28,41 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		$this->init_settings();
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array(
 			$this,
-			'process_admin_options'
+			'process_admin_options',
 		) );
-
 	}
 
 	public function init_form_fields() {
 		$this->form_fields = array(
-			'enabled' => array(
+			'enabled'                    => array(
 				'title'       => 'Enable/Disable',
 				'label'       => esc_html__( 'Enable Purchase Orders Gateway', 'wc-purchase-orders' ),
 				'type'        => 'checkbox',
 				'description' => '',
 			),
-			'title'   => array(
-				'title'       => esc_html__( 'Title', 'wc-purchase-orders' ),
-				'type'        => 'text',
-				'default'     => 'Purchase Orders',
+			'title'                      => array(
+				'title'   => esc_html__( 'Title', 'wc-purchase-orders' ),
+				'type'    => 'text',
+				'default' => 'Purchase Orders',
 			),
-			'description'   => array(
-				'title'       => esc_html__( 'Description', 'wc-purchase-orders' ),
-				'type'        => 'textarea',
+			'description'                => array(
+				'title' => esc_html__( 'Description', 'wc-purchase-orders' ),
+				'type'  => 'textarea',
+			),
+			'restrict_to_specific_users' => array(
+				'title'       => esc_html__( 'Restrict to Specific Users', 'wc-purchase-orders' ),
+				'label'       => esc_html__( 'Enable to restrict this gateway to users explicitly allowed via their profile', 'wc-purchase-orders' ),
+				'type'        => 'checkbox',
+				'description' => esc_html__( 'If unchecked, the gateway will be available to all users. If checked, only users with "Enable purchase orders" set in their profile can use it.',
+					'wc-purchase-orders' ),
+				'default'     => 'yes', // Default is restricted (current behavior)
+			),
+			'require_document_upload'    => array(
+				'title'       => esc_html__( 'Require Document Upload', 'wc-purchase-orders' ),
+				'label'       => esc_html__( 'Make the purchase order document upload mandatory', 'wc-purchase-orders' ),
+				'type'        => 'checkbox',
+				'description' => esc_html__( 'If unchecked, users can submit a purchase order without uploading a document.', 'wc-purchase-orders' ),
+				'default'     => 'yes', // Default is required (current behavior)
 			),
 		);
 	}
@@ -54,7 +71,7 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		parent::payment_fields();
 		do_action( 'wcpo_before_form' );
 		echo '<fieldset id="wc-' . esc_attr( $this->id ) . '-po-form" class="wc-payment-process-form wc-payment-form" style="background:transparent;">';
-		wp_nonce_field('payment_form','purchase-order-nonce');
+		wp_nonce_field( 'payment_form', 'purchase-order-nonce' );
 		echo '<div class="form-row form-row-wide wcpo-document-upload">
 		<label for="wcpo-document-file"><a>' . esc_html__( 'Upload purchase order document file', 'wc-purchase-orders' ) . '</a></label>
 		<input id="wcpo-document-file" name="wcpo-document-file" type="file" accept=".doc,.docx,.pdf">
@@ -75,8 +92,6 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 	 * Validation
 	 */
 	public function validate_fields() {
-
-
 		return true;
 	}
 
@@ -90,6 +105,7 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		return $path . DIRECTORY_SEPARATOR . $new_file_name;
 	}
 
+	// In class-bbpo-purchase-orders-gateway.php, update the process_payment method
 	public function process_payment( $order_id ) {
 		global $woocommerce;
 		$order      = wc_get_order( $order_id );
@@ -102,6 +118,9 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 			return;
 		}
 
+		// Check if document upload is required
+		$require_document_upload = $this->get_option( 'require_document_upload' ) === 'yes';
+
 		if ( ! empty( $_POST['wcpo-document-file-path'] ) ) {
 			$document_file_path = sanitize_text_field( $_POST['wcpo-document-file-path'] );
 			if ( file_exists( $upload_dir['basedir'] . $document_file_path ) ) {
@@ -112,7 +131,8 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 
 				return;
 			}
-		} else {
+		} elseif ( $require_document_upload ) {
+			// If document is required and not provided, show error
 			wc_add_notice( esc_html__( 'Purchase order file is required', 'wc-purchase-orders' ), 'error' );
 
 			return;
@@ -121,6 +141,7 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 		if ( ! empty( $_POST['wcpo-document-number'] ) ) {
 			$order->update_meta_data( '_purchase_order_number', sanitize_text_field( $_POST['wcpo-document-number'] ) );
 		}
+
 		$order->update_status( 'on-hold', esc_html__( 'Awaiting purchase order review', 'wc-purchase-orders' ) );
 
 		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
@@ -133,7 +154,7 @@ class Wc_Purchase_Orders_Gateway extends WC_Payment_Gateway {
 
 		return array(
 			'result'   => 'success',
-			'redirect' => $this->get_return_url( $order )
+			'redirect' => $this->get_return_url( $order ),
 		);
 	}
 }
