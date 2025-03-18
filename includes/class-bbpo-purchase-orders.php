@@ -70,7 +70,7 @@ class BBPO_Purchase_Orders {
 		if ( defined( 'WC_PURCHASE_ORDERS_VERSION' ) ) {
 			$this->version = BBPO_PURCHASE_ORDERS_VERSION;
 		} else {
-			$this->version = '1.0.0';
+			$this->version = '1.0.2';
 		}
 		$this->plugin_name = 'wc-purchase-orders';
 
@@ -198,7 +198,6 @@ class BBPO_Purchase_Orders {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-
 		$plugin_admin = new BBPO_Purchase_Orders_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
@@ -206,7 +205,8 @@ class BBPO_Purchase_Orders {
 		$this->loader->add_action( 'woocommerce_admin_order_data_after_order_details', $plugin_admin, 'purchase_order_data_admin' );
 		$this->loader->add_action( 'woocommerce_email_order_meta', $plugin_admin, 'purchase_order_data_email', 10, 3 );
 		$this->loader->add_action( 'woocommerce_order_details_after_order_table_items', $plugin_admin, 'purchase_order_data_order_details' );
-
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'new_settings_notice' );
+		$this->loader->add_action( 'wp_ajax_wcpo_dismiss_new_settings_notice', $plugin_admin, 'dismiss_new_settings_notice' );
 	}
 
 	/**
