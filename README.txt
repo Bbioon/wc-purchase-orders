@@ -1,8 +1,8 @@
 === WooCommerce Purchase Orders ===
 Tags: woocommerce, purchase orders, payment gateway, documents, orders
 Requires at least: 4.7
-Tested up To: 6.6
-Stable tag: 1.0.1
+Tested up To: 6.7
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Contributors: bbioon
@@ -54,6 +54,11 @@ Customers can upload necessary document files during the checkout process when s
 Yes, shop managers can conveniently review uploaded documents and approve orders directly from the WooCommerce order pages.
 
 == Changelog ==
+
+= 1.0.2 =
+* Added - "Restrict to Specific Users" Setting: Added a checkbox to toggle gateway access between specific users (via profile) or all users; hides profile option when unchecked. Defaults to enabled (restricted) for compatibility.
+* Added - "Require Document Upload" Setting: Added a checkbox to make document upload mandatory or optional; allows orders without documents when unchecked. Defaults to enabled (required) for compatibility.
+* Added - Admin Notice for New Settings: Added a dismissible notice to alert admins of new settings after updating to 1.1.0, visible until dismissed or settings saved.
 
 = 1.0.1 =
 * Update plugin description
