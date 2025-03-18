@@ -16,12 +16,13 @@
  * Plugin Name:       WC Purchase Orders
  * Plugin URI:        https://github.com/Bbioon/wc-purchase-orders
  * Description:       Support shop orders as a WooCommerce payment gateway and show this payment gateway to allowed users only.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Ahmad Wael
  * Author URI:        https://www.bbioon.com/about
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wc-purchase-orders
+ * Tested up To:      6.6
  * Domain Path:       /languages
  */
 

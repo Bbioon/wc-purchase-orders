@@ -1,10 +1,13 @@
 === WooCommerce Purchase Orders ===
-Tags: woocommerce, purchase orders, payment gateway, documents, orders, manager, order approval
+Tags: woocommerce, purchase orders, payment gateway, documents, orders
 Requires at least: 4.7
-Tested up to: 6.3
-Stable tag: 1.0.0
+Tested up To: 6.6
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Contributors: bbioon
+
+Enable purchase orders! WooCommerce plugin lets you accept Purchase Orders at checkout, streamlining B2B orders.
 
 == Description ==
 
@@ -20,6 +23,7 @@ This plugin is compatible with WooCommerce versions greater than 3.0, ensuring a
 - Allows customers to upload document files for purchase orders.
 - Securily storing files.
 - Enables shop managers to review and approve orders.
+- Select users that will be able to use the purchase orders.
 - Documents are accessible on order pages, customer profiles, and in order detail emails.
 - Compatibility with WooCommerce versions greater than 3.0.
 
@@ -29,6 +33,14 @@ This plugin is compatible with WooCommerce versions greater than 3.0, ensuring a
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. Go to WooCommerce > Settings > Payments and enable the 'Purchase Orders' payment method.
 4. Customize settings and manage purchase orders from the WooCommerce settings.
+
+== Screenshots ==
+
+1. Download attached document file in order admin view.
+2. Purchase orders gateway on checkout page on the frontend.
+3. Download attached document file in order view in user account.
+4. Enable puchase orders for certain users in their profiles.
+
 
 == Frequently Asked Questions ==
 
@@ -42,6 +54,9 @@ Customers can upload necessary document files during the checkout process when s
 Yes, shop managers can conveniently review uploaded documents and approve orders directly from the WooCommerce order pages.
 
 == Changelog ==
+
+= 1.0.1 =
+* Update plugin description
 
 = 1.0.0 =
 * Initial release
@@ -63,7 +78,7 @@ This plugin is licensed under the GNU General Public License v2 or later.
 
 For any inquiries, issues, or suggestions, please contact Ahmad Wael:
 - Twitter: [@devwael](https://twitter.com/devwael)
-- Hire me on Codeable: [Ahmad Wael on Codeable](https://www.codeable.io/developers/ahmad-wael/)
+- Hire me on Codeable: [Ahmad Wael on Codeable](https://www.codeable.io/developers/ahmad-wael?ref=MzT5A)
 - Get to know Ahmad Wael: [YouTube - Meet Ahmad Wael](https://www.youtube.com/watch?v=sBlZoJ9apTw)
 - Website: [bbioon.com](https://www.bbioon.com)
 
