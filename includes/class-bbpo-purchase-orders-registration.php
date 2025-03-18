@@ -39,7 +39,17 @@ class BBPO_Purchase_Orders_Gateway_Registration {
 	 * @return array of payment gateways ids
 	 */
 	public function allowed_purchase_order_users( $available_gateways ) {
-		$user_id             = get_current_user_id();
+		// Get the gateway settings
+		$gateway_settings = get_option( 'woocommerce_wc-purchase-orders_settings', array() );
+		$restrict_to_specific_users = isset( $gateway_settings['restrict_to_specific_users'] ) ? $gateway_settings['restrict_to_specific_users'] : 'yes';
+
+		// If not restricted, keep the gateway available for all users
+		if ( $restrict_to_specific_users !== 'yes' ) {
+			return $available_gateways;
+		}
+
+		// Otherwise, check user meta as before
+		$user_id = get_current_user_id();
 		$can_use_purchase_orders = get_user_meta( $user_id, 'wcpo_can_user_purchase_orders', true ) === 'yes';
 		if ( isset( $available_gateways['wc-purchase-orders'] ) && ! $can_use_purchase_orders ) {
 			unset( $available_gateways['wc-purchase-orders'] );
