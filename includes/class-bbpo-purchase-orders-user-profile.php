@@ -50,8 +50,10 @@ class BBPO_Purchase_Orders_User_Profile {
 
 		if ( ! empty( $_POST['enable-purchase-orders'] ) && $_POST['enable-purchase-orders'] === 'yes' && current_user_can( 'manage_options' ) ) {
 			update_user_meta( $user_id, 'wcpo_can_user_purchase_orders', 'yes' );
+			do_action( 'wcpo_user_purchase_orders_enabled', $user_id );
 		} else {
 			delete_user_meta( $user_id, 'wcpo_can_user_purchase_orders' );
+			do_action( 'wcpo_user_purchase_orders_disabled', $user_id );
 		}
 	}
 }
