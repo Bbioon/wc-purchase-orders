@@ -33,22 +33,32 @@ class BBPO_Purchase_Orders_User_Profile {
 
 		// Otherwise, show the option as before
 		?>
-        <h3><?php
-			esc_html_e( 'Allow Purchase Orders', 'wc-purchase-orders' ); ?></h3>
-        <table class="form-table" role="presentation">
-            <tr class="enable-purchase-orders">
-                <th scope="row"><?php
-					esc_html_e( 'Purchase Orders', 'wc-purchase-orders' ); ?></th>
-                <td>
-                    <label for="enable-purchase-orders">
-                        <input name="enable-purchase-orders" type="checkbox" id="enable-purchase-orders" value="yes"
+		<h3>
+		<?php
+			esc_html_e( 'Allow Purchase Orders', 'wc-purchase-orders' );
+		?>
+		</h3>
+		<table class="form-table" role="presentation">
+			<tr class="enable-purchase-orders">
+				<th scope="row">
+				<?php
+					esc_html_e( 'Purchase Orders', 'wc-purchase-orders' );
+				?>
+				</th>
+				<td>
+					<label for="enable-purchase-orders">
+						<input name="enable-purchase-orders" type="checkbox" id="enable-purchase-orders" value="yes"
 							<?php
-							checked( get_user_meta( $user->ID, 'wcpo.can_user_purchase_orders', true ), 'yes' ) ?>>
+							checked( get_user_meta( $user->ID, 'wcpo_can_user_purchase_orders', true ), 'yes' )
+							?>
+							>
 						<?php
-						esc_html_e( 'Enable purchase orders', 'wc-purchase-orders' ); ?> </label><br>
-                </td>
-            </tr>
-        </table>
+						esc_html_e( 'Enable purchase orders', 'wc-purchase-orders' );
+						?>
+						</label><br>
+				</td>
+			</tr>
+		</table>
 		<?php
 	}
 
@@ -77,10 +87,10 @@ class BBPO_Purchase_Orders_User_Profile {
 		// Only administrators can modify this setting
 		if ( current_user_can( 'manage_options' ) ) {
 			if ( ! empty( $_POST['enable-purchase-orders'] ) && $_POST['enable-purchase-orders'] === 'yes' ) {
-				update_user_meta( $user_id, 'wcpo.can_user_purchase_orders', 'yes' );
+				update_user_meta( $user_id, 'wcpo_can_user_purchase_orders', 'yes' );
 				do_action( 'wcpo_user_purchase_orders_enabled', $user_id );
 			} else {
-				delete_user_meta( $user_id, 'wcpo.can_user_purchase_orders' );
+				delete_user_meta( $user_id, 'wcpo_can_user_purchase_orders' );
 				do_action( 'wcpo_user_purchase_orders_disabled', $user_id );
 			}
 		}
