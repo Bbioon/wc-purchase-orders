@@ -70,7 +70,7 @@ class BBPO_Purchase_Orders {
 		if ( defined( 'WC_PURCHASE_ORDERS_VERSION' ) ) {
 			$this->version = BBPO_PURCHASE_ORDERS_VERSION;
 		} else {
-			$this->version = '1.0.2';
+			$this->version = '1.0.3';
 		}
 		$this->plugin_name = 'wc-purchase-orders';
 

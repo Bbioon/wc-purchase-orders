@@ -2,7 +2,7 @@
 Tags: woocommerce, purchase orders, payment gateway, documents, orders
 Requires at least: 4.7
 Tested up To: 6.7
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Contributors: bbioon
@@ -54,6 +54,11 @@ Customers can upload necessary document files during the checkout process when s
 Yes, shop managers can conveniently review uploaded documents and approve orders directly from the WooCommerce order pages.
 
 == Changelog ==
+
+= 1.0.3 =
+* Added - Improve the security checks for deleting the uploaded purchase order file on checkout.
+* Added - Improvements to the styling of the purchase orders form on checkout.
+* Fixed - User profile meta key "wcpo_can_user_purchase_orders".
 
 = 1.0.2 =
 * Added - "Restrict to Specific Users" Setting: Added a checkbox to toggle gateway access between specific users (via profile) or all users; hides profile option when unchecked. Defaults to enabled (restricted) for compatibility.
