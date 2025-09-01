@@ -190,6 +190,31 @@ This plugin is licensed under the GNU General Public License v2 or later. See th
 
 **Ahmad Wael** - [bbioon.com](https://www.bbioon.com)
 
+## 🚀 **AVAILABLE FOR HIRE!**
+
+> **Need custom WordPress/WooCommerce development? I'm available for hire!**
+
+**[👉 HIRE ME ON CODEABLE](https://www.codeable.io/developers/ahmad-wael?ref=MzT5A) - Expert WordPress & WooCommerce Developer**
+
+**Services I offer:**
+- 🎯 Custom WordPress Plugin Development
+- 🛒 WooCommerce Customizations & Extensions
+- 🔧 WordPress Site Maintenance & Optimization
+- 📱 Responsive Theme Development
+- 🚀 Performance Optimization
+- 🔒 Security Hardening
+
+**Why choose me?**
+- ✅ 14+ years of WordPress development experience
+- ✅ WooCommerce expert with deep plugin knowledge
+- ✅ Clean, maintainable, and secure code
+- ✅ Fast turnaround times
+- ✅ Ongoing support and maintenance
+
+**[🎯 START YOUR PROJECT NOW](https://www.codeable.io/developers/ahmad-wael?ref=MzT5A)**
+
+---
+
 ### Connect with Ahmad
 - 🐦 Twitter: [@devwael](https://twitter.com/devwael)
 - 💼 Hire on Codeable: [Ahmad Wael on Codeable](https://www.codeable.io/developers/ahmad-wael?ref=MzT5A)
