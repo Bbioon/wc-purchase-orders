@@ -1,6 +1,8 @@
 (function ($) {
     'use strict';
-
+    
+    let file_name = '';
+    
     // upload purchase order
     $(document).on('change', '#wcpo-document-file', function (e) {
         const previewArea = $('.wcpo-document-preview');
@@ -24,6 +26,7 @@
                 success: function (response) {
                     if(response.success) {
                         previewArea.empty().show();
+                        file_name = response.data.file_name;
                         $('input[name="wcpo-document-file-path"]').val(response.data.file_path);
                         previewArea.append('<span class="wcpo-remove">x</span><span>' + file.name + '</span><img src="' + wcpo_object.icons_url + response.data.file_type + '.png">')
                     } else {
@@ -42,7 +45,9 @@
         if (file.val()) {
             $.ajax({
                 type: "post", dataType: "json", url: wcpo_object.ajax_url, data: {
-                    action: "wcpo_delete_purchase_order_file", file_path: file.val(), nonce: wcpo_object.nonce
+                    action: "wcpo_delete_purchase_order_file", 
+                    nonce: wcpo_object.nonce,
+                    file_name: file_name
                 }, success: function (response) {
                     file.val('')
                     $('#wcpo-document-file').val('')

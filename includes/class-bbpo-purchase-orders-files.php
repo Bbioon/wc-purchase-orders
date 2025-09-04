@@ -1,14 +1,21 @@
 <?php
+/**
+ * The file that defines the purchase orders file handler.
+ *
+ * @package BBPO_Purchase_Orders
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
+
 /**
  * The purchase orders file handler.
  *
  * @since      1.0.0
- * @package    Woocommerce_Payment_Processor
- * @subpackage Woocommerce_Payment_Processor/includes
- * @author     AHMAD WAEL <dev.ahmedwael@gmail.com>
+ * @package    BBPO_Purchase_Orders
+ * @subpackage BBPO_Purchase_Orders/includes
+ * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
 class BBPO_Purchase_Orders_Files {
 
@@ -69,23 +76,39 @@ class BBPO_Purchase_Orders_Files {
 	 */
 	public function file_upload() {
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wcpo-nonce' ) ) {
-			$current_year  = date( 'Y' );
-			$current_month = date( 'm' );
+			$current_year  = gmdate( 'Y' );
+			$current_month = gmdate( 'm' );
 			$allowed       = array(
 				'application/msword' => 'doc',
 				'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
 				'application/pdf'    => 'pdf',
 			);
 			if ( ! isset( $_FILES['wcpo-document-file'] ) ) {
-				wp_send_json_error(
+				$this->send_error_signal(
 					array(
 						'code'    => 'file_not_provided',
 						'message' => esc_html__( 'This file you are trying to upload is missing!', 'wc-purchase-orders' ),
 					)
 				);
 			}
+			if ( ! isset( $_FILES['wcpo-document-file']['type'] ) ) {
+				$this->send_error_signal(
+					array(
+						'code'    => 'file_type_not_provided',
+						'message' => esc_html__( 'This file you are trying to upload is missing!', 'wc-purchase-orders' ),
+					)
+				);
+			}
+			if ( ! isset( $_FILES['wcpo-document-file']['size'] ) ) {
+				$this->send_error_signal(
+					array(
+						'code'    => 'file_size_not_provided',
+						'message' => esc_html__( 'This file size you are trying to upload is missing!', 'wc-purchase-orders' ),
+					)
+				);
+			}
 			if ( ! in_array( $_FILES['wcpo-document-file']['type'], array_keys( $allowed ), true ) ) {
-				wp_send_json_error(
+				$this->send_error_signal(
 					array(
 						'code'    => 'file_not_allowed',
 						'message' => esc_html__( 'This file is not allowed!', 'wc-purchase-orders' ),
@@ -93,7 +116,7 @@ class BBPO_Purchase_Orders_Files {
 				);
 			}
 			if ( $_FILES['wcpo-document-file']['size'] > 2097152 ) { // 2 MB (size is also in bytes)
-				wp_send_json_error(
+				$this->send_error_signal(
 					array(
 						'code'    => 'file_too_big',
 						'message' => esc_html__( 'Max file size is 2MB', 'wc-purchase-orders' ),
@@ -120,22 +143,23 @@ class BBPO_Purchase_Orders_Files {
 			if ( $file && ! isset( $file['error'] ) ) {
 				$new_file_path = $path . $file_name;
 				rename( $file['file'], $new_file_path );
-				wp_send_json_success(
+				$this->send_success_signal(
 					array(
 						'file_url'  => $upload_dir['baseurl'] . $dir . $file_name,
 						'file_path' => $dir . $file_name,
 						'file_type' => sanitize_text_field( $allowed[ $_FILES['wcpo-document-file']['type'] ] ),
+						'file_name' => $file_name,
 					)
 				);
 			}
-			wp_send_json_error(
+			$this->send_error_signal(
 				array(
 					'code'    => 'file_error',
 					'message' => esc_html( $file['error'] ),
 				)
 			);
 		}
-		wp_send_json_error(
+		$this->send_error_signal(
 			array(
 				'code'    => 'nonce_failed',
 				'message' => esc_html__( 'Failed to pass security check!', 'wc-purchase-orders' ),
@@ -150,16 +174,20 @@ class BBPO_Purchase_Orders_Files {
 	 */
 	public function delete_file() {
 		if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'wcpo-nonce' ) ) {
-			if ( empty( $_POST['file_path'] ) ) {
-				wp_send_json_error(
+			if ( empty( $_POST['file_name'] ) ) {
+				$this->send_error_signal(
 					array(
-						'code'    => 'file_path_required',
-						'message' => esc_html__( 'File path is required', 'wc-purchase-orders' ),
+						'code'    => 'file_name_required',
+						'message' => esc_html__( 'File name is required', 'wc-purchase-orders' ),
 					)
 				);
 			}
 
-			$file_path = wp_upload_dir()['basedir'] . sanitize_text_field( $_POST['file_path'] );
+			$upload_dir    = wp_upload_dir();
+			$current_year  = gmdate( 'Y' );
+			$current_month = gmdate( 'm' );
+			$dir           = DIRECTORY_SEPARATOR . 'wc-purchase-orders' . DIRECTORY_SEPARATOR . $current_year . DIRECTORY_SEPARATOR . $current_month . DIRECTORY_SEPARATOR;
+			$file_path     = $upload_dir['basedir'] . $dir . sanitize_file_name( wp_unslash( $_POST['file_name'] ) );
 			if ( $this->validate_file_path( $file_path ) ) {
 				// delete file.
 				wp_delete_file( $file_path );
